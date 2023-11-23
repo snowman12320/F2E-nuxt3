@@ -1,6 +1,8 @@
 <template>
-  <div>
-    <p class="">客製布局</p>
-    <NuxtPage />
-  </div>
+  <p class="text-center mt-20 bg-blue-300">custom layout</p>
+  <NavBar />
+  <NuxtPage />
 </template>
+
+<script setup lang="ts">
+</script>

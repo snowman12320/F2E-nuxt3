@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <p class="bg-gray-300 text-white text-center">
-      Some default layout content shared across all pages
-    </p>
-    <!-- <NuxtPage /> -->
-    <slot />
-  </div>
+  <p class="bg-gray-300 text-center mt-20">default layout</p>
+  <NavBar />
+  <!-- 也可用 <NuxtPage /> -->
+  <slot />
 </template>
+
+<script setup lang="ts">
+</script>

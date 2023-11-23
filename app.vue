@@ -1,13 +1,14 @@
 <template>
-  <div>
-    <h1 class="mx-auto text-center w-full text-3xl">Welcome to the homepage</h1>
-    <NavBar />
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
-  </div>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
 </template>
-
 <script setup lang="ts">
-import NavBar from "~/components/NavBar.vue";
+useSeoMeta({
+  title: "My Amazing Site",
+  ogTitle: "My Amazing Site",
+  description: "This is my amazing site, let me tell you all about it.",
+  ogDescription: "This is my amazing site, let me tell you all about it.",
+  twitterCard: "summary_large_image",
+});
 </script>

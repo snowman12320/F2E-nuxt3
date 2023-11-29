@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1 {
+    @apply md:text-[56px] text-[40px] leading-[1.2];
+  }
+
+  h2 {
+    @apply md:text-[48px] text-[32px] leading-[1.2];
+  }
+
+  h3 {
+    @apply md:text-[40px] text-[24px] leading-[1.2];
+  }
+
+  h4 {
+    @apply md:text-[32px] text-[20px] leading-[1.2];
+  }
+
+  h5 {
+    @apply md:text-[24px] text-[18px] leading-[1.2];
+  }
+
+  h6 {
+    @apply md:text-[20px] text-[16px] md:leading-[1.2] leading-[1.4];
+  }
+}

@@ -1,17 +1,19 @@
 <template>
   <section class="px-10 bg-blue-200">
     <p>This page will be displayed at the /about route.</p>
+    <h1 class="">Current route: {{ route.path }}</h1>
     <div class="my-10 bg-gray-300 py-10 text-xl">{{ x }} / {{ y }}</div>
-    <hr>
-    
+    <hr />
   </section>
 </template>
 
 <script setup lang="ts">
+
 definePageMeta({
   layout: "custom",
 });
 
-import { useMouse } from "@vueuse/core";
+const route = useRoute();
+
 const { x, y } = useMouse();
 </script>

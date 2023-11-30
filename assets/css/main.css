@@ -27,3 +27,9 @@
     @apply md:text-[20px] text-[16px] md:leading-[1.2] leading-[1.4];
   }
 }
+
+@layer components {
+  .tab-active {
+    @apply;
+  }
+}

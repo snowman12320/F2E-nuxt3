@@ -4,4 +4,3 @@
   <!-- 也可用 <NuxtPage /> -->
   <slot />
 </template>
-

@@ -26,6 +26,7 @@ export default {
     extend: {
       colors: {
         primary: '#262E49',
+        disabled: '#BFBFBF',
       },
     },
   },

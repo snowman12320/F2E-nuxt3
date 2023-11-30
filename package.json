@@ -7,7 +7,8 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "add CP": "npx nuxi add component LoadingView"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
@@ -17,7 +18,9 @@
     "@vueuse/nuxt": "^10.6.0",
     "eslint": "^8.54.0",
     "nuxt": "^3.8.0",
+    "nuxt-icon": "^0.6.6",
     "nuxt-lodash": "^2.5.3",
+    "sass": "^1.69.5",
     "vue": "^3.3.7",
     "vue-router": "^4.2.5"
   },

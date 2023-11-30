@@ -7,10 +7,11 @@ const handleError = () => clearError({ redirect: "/" });
 </script>
 
 <template>
-  <div>
-    <h2>{{ error.statusCode }}</h2>
-    <h2>{{ error.statusMessage }}</h2>
-    <h2>{{ error.message }}</h2>
+  <div class="text-center space-y-l p-5xl">
+    <h3>{{ error.statusCode }}</h3>
+    <h4>{{ error.statusMessage }}</h4>
+    <!-- <h5>{{ error.message }}</h5> -->
+    <h5 class="!text-left" v-html="error.message"></h5>
     <button @click="handleError">Clear errors</button>
   </div>
 </template>

@@ -27,6 +27,9 @@ export default {
       colors: {
         primary: '#262E49',
         disabled: '#BFBFBF',
+        numberOne: '#DFA175',
+        numberTwo: '#8894D8',
+        numberThree: '#84CB98',
       },
     },
   },

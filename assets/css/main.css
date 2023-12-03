@@ -47,4 +47,7 @@
   .dropdown-default {
     @apply bg-white h-[40px] flex items-center hover:border-[#BFBFBF]  justify-between w-[156px] py-xxs px-s rounded-lg border relative hover:cursor-pointer;
   }
+  .map-disabled {
+    @apply fill-[#BFBFBF] cursor-not-allowed hover:!fill-[#BFBFBF];
+  }
 }

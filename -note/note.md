@@ -1,9 +1,7 @@
-
 ### //// Schedule ///
 
 - nuxt state manage
-- 
-
+-
 
 ### ////////////////// tailwind /////////////////
 
@@ -22,6 +20,7 @@
 - `npx tailwindcss init --full`
 
 // vscode plugin
+
 - x Tailwind Snippets
 - -x Tailwind Twin IntelliSense
 
@@ -39,7 +38,16 @@ import { useMouse } from "@vueuse/core";
 https://www.youtube.com/watch?v=q1oVtkqv8Ww
 ```
 
+// state management
+-  全域使用，用nuxt link 以外跳轉會刷新
+export const useCount = () => useState<number>("count", () => Math.round(Math.random() * 1000));
+-  區域內使用
+ const counter = useState('counter', () => Math.round(Math.random() * 1000))
+- 引用全域
+const counter = useCounter();
+
 // plugin
+
 - vue Snippets for vue/nuxt projects
 
 ### //////////// UI ///////////
@@ -50,8 +58,7 @@ https://www.youtube.com/watch?v=q1oVtkqv8Ww
 - 詳細地圖資料
   https://github.com/penspulse326/F2E2023-2/blob/dev/src/constants/city-path.json
 
-
-# //// other  ///
+# //// other ///
 
 ```
                 <!-- {{ selectedData[label] ? selectedData[label] : '請選擇' }} -->
@@ -71,6 +78,7 @@ const cityNames = cityList?.data?._rawValue?.map((city: any) => city.name) || []
   selectedData.value[label as keyof typeof selectedData.value] = item;
 ```
 
+// emit
 ```
 // Import the defineEmits function
 const emit = defineEmits(['update:loading'])
@@ -88,6 +96,15 @@ const clearSelections = () => {
     emit("update:loading", false);
   }, 3000);
 };
+
+// template
+@update:loading="handleLoading" 
+//script
+const isLoading = ref(false);
+const handleLoading = (state: boolean) => {
+  isLoading.value = state;
+};
+
 ```
 
 ```
@@ -103,8 +120,6 @@ import _ from 'lodash';
   // }
 ```
 
-
-
-
 # //// TSC ///
+
 - 修改 要重新開啟 dev

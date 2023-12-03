@@ -32,7 +32,7 @@
       <div class="space-y-l">
         <div class="flex justify-between items-center gap-l">
           <div class="w-[120px] h-[120px] bg-blue-800"></div>
-        </div>  
+        </div>
         <div class="space-y-l">
           <div class="h7 font-semibold space-y-l">
             <div class="flex gap-s">
@@ -50,7 +50,9 @@
               </div>
               <div class="pl-s">
                 <p class="h7 font-semibold">57.13%</p>
-                <p class="h8 flex justify-between items-center">14,464,571 票</p>
+                <p class="h8 flex justify-between items-center">
+                  14,464,571 票
+                </p>
               </div>
             </div>
             <div class="flex gap-s">
@@ -68,7 +70,9 @@
               </div>
               <div class="pl-s">
                 <p class="h7 font-semibold">57.13%</p>
-                <p class="h8 flex justify-between items-center">14,464,571 票</p>
+                <p class="h8 flex justify-between items-center">
+                  14,464,571 票
+                </p>
               </div>
             </div>
             <div class="flex gap-s">
@@ -86,7 +90,9 @@
               </div>
               <div class="pl-s">
                 <p class="h7 font-semibold">57.13%</p>
-                <p class="h8 flex justify-between items-center">14,464,571 票</p>
+                <p class="h8 flex justify-between items-center">
+                  14,464,571 票
+                </p>
               </div>
             </div>
           </div>

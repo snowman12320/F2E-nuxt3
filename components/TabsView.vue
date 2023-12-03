@@ -1,5 +1,81 @@
+<script setup lang="ts">
+import _ from "lodash";
+const selectedListStore = useSelectedListStore();
+const isLoading = useLoading();
+
+
+const tabName = ref("presidential");
+const selectTab = (tab: string) => {
+  tabName.value = tab;
+};
+
+const SelectCityData = await useFetch("/api/SelectCityData");
+const cityNames = computed(() => {
+  return SelectCityData?.data?._rawValue?.map((city: any) => city.name) || [];
+});
+const areaNames = computed(() => {
+  return SelectCityData?.data?._rawValue?.filter(
+    (city: any) => city.name === selectedListStore.value["縣市"] || {},
+  );
+});
+
+const toggleSelectNames = ref("");
+const toggleSelect = (select: string) => {
+  if (select === toggleSelectNames.value) {
+    toggleSelectNames.value = "";
+    return;
+  }
+  toggleSelectNames.value = select;
+};
+
+const selectItem = async (label: string, item: string) => {
+  switch (label) {
+    case "縣市":
+      selectedListStore.value[label] = await item;
+      selectedListStore.value["區域"] = "";
+      break;
+    case "區域":
+      selectedListStore.value[label] = item;
+      // selectedListStore.value["鄉鎮"] = "";
+      break;
+    case "鄉鎮":
+      selectedListStore.value[label] = item;
+      break;
+  }
+  toggleSelectNames.value = "";
+};
+
+const clearSelections = () => {
+  // if (_.every(selectedData.value, _.isEmpty)) {
+  //   alert("already empty clear");
+  //   return;
+  // }
+  selectedListStore.value = {
+    縣市: "",
+    區域: "",
+    鄉鎮: "",
+  };
+  toggleSelectNames.value = "";
+
+  isLoading.value = true;
+  setTimeout(() => {
+    isLoading.value = false;
+  }, 1000);
+};
+
+watch(
+  () => selectedListStore.value["縣市"],
+  (newValue, oldValue) => {
+    if (newValue !== oldValue) {
+      selectedListStore.value["區域"] = "";
+    }
+  },
+);
+</script>
+
 <template>
   <main class="space-y-l">
+    {{ selectedListStore }}
     <div class="flex justify-start gap-[20px] w-full h-full">
       <h6
         class="tab-default"
@@ -16,37 +92,37 @@
         第10任 立法委員選舉
       </h6>
     </div>
-    <div class="flex flex-col justify-center items-center h-full gap-xxs">
-      <div class="flex justify-start gap-[20px] w-full h-full">
-        <div v-for="(label, index) in ['縣市', '區域', '鄉鎮']" :key="index">
-          <div class="relative">
-            <div
-              class="dropdown-default"
-              @click="toggleSelect(label)"
-              :class="{ '!border-[#000]': selectedName == label }"
+    <div class="flex justify-start gap-[20px] w-full h-full items-center">
+      <div v-for="(label, index) in ['縣市', '區域', '鄉鎮']" :key="index">
+        <div class="relative">
+          <div
+            class="dropdown-default"
+            @click="toggleSelect(label)"
+            :class="{ '!border-[#000]': toggleSelectNames == label }"
+          >
+            <h6 class="text-inherit font-semibold w-[100px] flex-none">
+              {{ selectedListStore[label] || "請選擇" + label }}
+            </h6>
+            <Icon
+              name="fa-solid:chevron-down"
+              width="55"
+              :verticalFlip="toggleSelectNames == label"
+            />
+          </div>
+          <ul
+            v-show="toggleSelectNames == label"
+            class="absolute bg-white w-full top-[44px] left-[0] rounded-lg overflow-hidden max-h-[204px] overflow-y-auto border border-black"
+          >
+            <li
+              class="hover:bg-neutral-200 block py-xxs px-l w-full text-xl bg"
+              @click="selectItem(label, '')"
             >
-              <h6 class="text-inherit font-semibold w-[100px] flex-none">
-                {{ selectedData[label] || "請選擇" }}
-              </h6>
-              <Icon
-                name="fa-solid:chevron-down"
-                width="55"
-                :verticalFlip="selectedName == label"
-              />
-            </div>
-            <ul
-              v-show="selectedName == label"
-              class="absolute bg-white w-full top-[44px] left-[0] rounded-lg overflow-hidden h-[204px] overflow-y-scroll border border-black"
-            >
-              <li
-                class="hover:bg-neutral-200 block py-xxs px-l w-full text-xl bg"
-                @click="selectItem(label, '')"
-              >
-                請選擇
-              </li>
+              請選擇{{ label }}
+            </li>
+            <template v-if="label == '縣市'">
               <li
                 class="hover:bg-neutral-200 block py-xxs px-l w-full cursor-pointer font-semibold text-xl"
-                :class="{ 'bg-neutral-200': selectedData[label] === item }"
+                :class="{ 'bg-neutral-200': selectedListStore[label] === item }"
                 v-for="(item, index) in cityNames"
                 :key="index"
                 :value="item"
@@ -54,78 +130,51 @@
               >
                 {{ item }}
               </li>
-            </ul>
-          </div>
+            </template>
+            <template v-if="areaNames[0]">
+              <li
+                class="hover:bg-neutral-200 block py-xxs px-l w-full cursor-pointer font-semibold text-xl"
+                :class="{ 'bg-neutral-200': selectedListStore[label] === item }"
+                v-for="(item, index) in areaNames[0].district"
+                :key="index"
+                :value="item"
+                @click="selectItem(label, item)"
+              >
+                {{ item }}
+              </li>
+            </template>
+            <template v-if="false">
+              <li
+                class="hover:bg-neutral-200 block py-xxs px-l w-full cursor-pointer font-semibold text-xl"
+                :class="{ 'bg-neutral-200': selectedListStore[label] === item }"
+                v-for="(item, index) in localNames[0].district"
+                :key="index"
+                :value="item"
+                @click="selectItem(label, item)"
+              >
+                {{ item }}
+              </li>
+            </template>
+          </ul>
         </div>
-        <button
-          type="button"
-          class="btn-default h-[35px] flex items-center justify-center gap-xs cursor-pointer py-xxs px-s rounded-lg border w-[88px]"
-          @click="clearSelections"
-          :disabled="false"
-        >
-          <h6 class="font-semibold flex-none h7">清除</h6>
-          <Icon
-            name="fa-solid:redo"
-            width="55"
-            color="white"
-            :class="{ '!text-[#737373]': false }"
-          />
-        </button>
       </div>
+      <button
+        type="button"
+        class="btn-default h-[35px] flex items-center justify-center gap-xs cursor-pointer py-xxs px-s rounded-lg border w-[88px]"
+        @click="clearSelections"
+        :disabled="false"
+      >
+        <h6 class="font-semibold flex-none h7">清除</h6>
+        <Icon
+          name="fa-solid:redo"
+          width="55"
+          color="white"
+          :class="{ '!text-[#737373]': false }"
+        />
+      </button>
     </div>
   </main>
 </template>
-
-<script setup lang="ts">
-const tabName = ref("presidential");
-const selectTab = (tab: string) => {
-  tabName.value = tab;
-};
-
-const cityList = await useFetch("/api/cityList");
-const cityNames = cityList?.data?._rawValue?.map((city: any) => city.name) || [];
-
-const selectedName = ref("");
-const toggleSelect = (select: string) => {
-  if (select === selectedName.value) {
-    selectedName.value = "";
-    return;
-  }
-  selectedName.value = select;
-};
-
-type SelectedDataType = {
-  [key: string]: string;
-};
-const selectedData: SelectedDataType = ref({
-  縣市: "",
-  區域: "",
-  鄉鎮: "",
-});
-const selectItem = (label: string, item: string) => {
-  selectedData.value[label] = item;
-  selectedName.value = "";
-};
-
-import _ from "lodash";
-const emit = defineEmits(["update:loading"]);
-const clearSelections = () => {
-  // if (_.every(selectedData.value, _.isEmpty)) {
-  //   alert("already empty clear");
-  //   return;
-  // }
-  selectedData.value = {
-    縣市: "",
-    區域: "",
-    鄉鎮: "",
-  };
-  emit("update:loading", true);
-  setTimeout(() => {
-    emit("update:loading", false);
-  }, 1000);
-  selectedName.value = "";
-};
-</script>
 
 <style lang="scss">
 /* 將滾動條的顏色更改為紅色 */

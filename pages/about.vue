@@ -4,11 +4,11 @@
     <h1 class="">Current route: {{ route.path }}</h1>
     <div class="my-10 bg-gray-300 py-10 text-xl">{{ x }} / {{ y }}</div>
     <hr />
+    <p class="text-3xl">{{ counter }}</p>
   </section>
 </template>
 
 <script setup lang="ts">
-
 definePageMeta({
   layout: "custom",
 });
@@ -16,4 +16,6 @@ definePageMeta({
 const route = useRoute();
 
 const { x, y } = useMouse();
+
+const counter = useCounter();
 </script>

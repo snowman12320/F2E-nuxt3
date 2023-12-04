@@ -35,6 +35,11 @@
     </p>
 ```
 
+### // config.js
+
+報錯就要刪掉，用官方的示範黨，找錯誤在哪，比如sm:'390px'就有錯
+！！！sm 沒放在extend 所以md:xx[xx] 沒有md，導致報錯，要改就要全改，不然就放extend（就算是原本就有的sm，也應該放，就會直接覆蓋）
+
 ## // vscode plugin
 
 - x Tailwind Snippets
@@ -162,3 +167,5 @@ import _ from 'lodash';
 # //// TSC ///
 
 - 修改 要重新開啟 dev
+
+### //// git rebase origin/main > 拆遠端和本地的記錄黨並合併，同個記錄名稱，不能改名 > git rebase --continue > 就將兩個合併的，推上去 ///

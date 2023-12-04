@@ -14,23 +14,23 @@ const myStyles = computed(() => ({
   zIndex: '1'
 }))
 
-const isToggleArrow = ref(false)
+const isToggleArrow = ref(true)
 </script>
 
 <template>
-  <div class="mt-2xl space-y-l rounded-lg bg-white p-l sm:h-[619px] sm:w-[270px]">
-    <div class="flex items-center justify-between" @click="isToggleArrow = !isToggleArrow">
+  <div class="mt-2xl sm:space-y-l rounded-lg bg-white p-l sm:h-[619px] sm:w-[270px]">
+    <div class="flex items-center justify-between relative " >
       <h6 class="font-bold text-inherit sm:font-semibold">投票概況</h6>
       <Icon
         name="fa-solid:chevron-down"
         width="55"
         :verticalFlip="isToggleArrow"
-        class="w-[24px] sm:hidden sm:w-[55px]"
+        class="w-[24px] opacity-100 sm:w-[55px] sm:opacity-0"
       />
+      <span @click="isToggleArrow = !isToggleArrow" class="absolute top-[0px] left-[0px] right-[0px] bottom-[0px] block sm:hidden cursor-pointer"></span>
     </div>
-    <section class="h-[0px] space-y-3xl" :class="{ 'h-auto': isToggleArrow }">
+    <section class="h-[0px] sm:h-auto space-y-3xl transition-all duration-500 overflow-y-hidden " :class="{ 'h-[280px] mt-l ': isToggleArrow }">
       <div
-        v-show="isToggleArrow"
         class="flex flex-row items-center justify-start gap-x-s sm:flex-col sm:items-start sm:justify-center sm:gap-x-[0px] sm:space-y-l"
       >
         <div class="relative flex items-center justify-start gap-s sm:gap-l">
@@ -66,7 +66,6 @@ const isToggleArrow = ref(false)
         </div>
       </div>
       <div
-        v-show="isToggleArrow"
         class="flex flex-row gap-x-s space-y-l sm:flex-col sm:gap-x-[0px]"
       >
         <div class="flex items-center justify-between gap-l">

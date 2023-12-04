@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1 {
+    @apply md:text-[56px] text-[40px] leading-[1.2] font-semibold;
+  }
+
+  h2 {
+    @apply md:text-[48px] text-[32px] leading-[1.2] font-semibold;
+  }
+
+  h3 {
+    @apply md:text-[40px] text-[24px] leading-[1.2] font-semibold;
+  }
+
+  h4 {
+    @apply md:text-[32px] text-[20px] leading-[1.2] font-semibold;
+  }
+
+  h5 {
+    @apply md:text-[24px] text-[18px] leading-[1.2] font-semibold;
+  }
+
+  h6 {
+    @apply md:text-[20px] text-[16px] md:leading-[1.2] leading-[1.4] font-normal;
+  }
+  .h7 {
+    @apply md:text-[16px] text-[16px] md:leading-[1.4] leading-[1.4] font-normal;
+  }
+  .h8 {
+    @apply md:text-[12px] text-[12px] md:leading-[1.4] leading-[1.4] font-normal;
+  }
+}
+
+
+@layer components {
+  .btn-default {
+    @apply bg-[#262E49] text-white hover:bg-[#525982] active:bg-[#171C2C] disabled:cursor-not-allowed disabled:bg-[#CCC] disabled:text-[#737373];
+  }
+  .tab-default {
+    @apply md:text-[20px] cursor-pointer border-[#BFBFBF] text-[16px] font-normal leading-[1.2] text-[#BFBFBF] hover:border-b-4 hover:font-bold hover:text-[#262E49] py-s sm:p-s;
+  }
+  .tab-click { 
+    @apply border-b-4 border-black font-bold text-black;
+  }
+  .dropdown-default {
+    @apply relative flex h-[36px] w-full items-center justify-between  rounded-lg border bg-white px-s py-xxs hover:cursor-pointer hover:border-[#BFBFBF] sm:h-[40px] sm:w-[156px];
+  }
+  .map-disabled {
+    @apply cursor-not-allowed fill-[#BFBFBF] hover:!fill-[#BFBFBF];
+  }
+}

@@ -790,8 +790,8 @@ export default {
       125: "1.25",
       150: "1.5",
     },
-    screens: {
-      sm: "640px",
+      screens: {
+        sm: "640px",
       md: "768px",
       lg: "1024px",
       xl: "1280px",

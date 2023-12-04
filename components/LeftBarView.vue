@@ -1,98 +1,139 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
+import { Doughnut } from 'vue-chartjs'
+import * as chartConfig from '~/assets/js/chartConfig.ts'
+ChartJS.register(ArcElement, Tooltip)
+
+const mutableHeight = ref('inherit')
+const myStyles = computed(() => ({
+  height: `${mutableHeight.value} `,
+  width: 'inherit',
+  position: 'relative',
+  top: '0px',
+  left: '0px',
+  zIndex: '1'
+}))
+
+const isToggleArrow = ref(false)
+</script>
 
 <template>
-  <div class="p-l space-y-l bg-white rounded-lg mt-3xl">
-    <h6 class="text-inherit font-semibold">投票概況</h6>
-    <section class="space-y-3xl">
-      <div class="space-y-l">
-        <div class="flex justify-start items-center gap-l">
-          <div class="w-[120px] h-[120px] bg-blue-800"></div>
-          <div class="flex flex-col justify-start items-center">
+  <div class="mt-2xl space-y-l rounded-lg bg-white p-l sm:h-[619px] sm:w-[270px]">
+    <div class="flex items-center justify-between" @click="isToggleArrow = !isToggleArrow">
+      <h6 class="font-bold text-inherit sm:font-semibold">投票概況</h6>
+      <Icon
+        name="fa-solid:chevron-down"
+        width="55"
+        :verticalFlip="isToggleArrow"
+        class="w-[24px] sm:hidden sm:w-[55px]"
+      />
+    </div>
+    <section class="h-[0px] space-y-3xl" :class="{ 'h-auto': isToggleArrow }">
+      <div
+        v-show="isToggleArrow"
+        class="flex flex-row items-center justify-start gap-x-s sm:flex-col sm:items-start sm:justify-center sm:gap-x-[0px] sm:space-y-l"
+      >
+        <div class="relative flex items-center justify-start gap-s sm:gap-l">
+          <div
+            class="!z-[1] h-[72px] w-[72px] border-none border-blue-800 sm:h-[120px] sm:w-[120px]"
+          >
+            <Doughnut
+              :data="chartConfig.dataS1"
+              :options="chartConfig.optionsS1"
+              :style="myStyles"
+            />
+          </div>
+          <div class="flex flex-col items-center justify-start">
             <h6 class="font-semibold">74.9%</h6>
             <h6 class="h7 font-semibold">投票率</h6>
           </div>
         </div>
         <div class="space-y-3xl">
-          <div class="h7 font-semibold space-y-xs">
-            <p class="[&>*]:font-semibold [&>*]:h7 space-x-xs">
-              <span class="">投票率</span>
-              <span class="">14,464,571 票</span>
+          <div class="sm:h7 h8 space-y-xs font-bold sm:font-semibold">
+            <p class="space-x-xs">
+              <span>投票率</span>
+              <span>14,464,571 票</span>
             </p>
-            <p class="[&>*]:font-semibold [&>*]:h7 space-x-xs">
-              <span class="">無效票數</span>
-              <span class="">14,464,571 票</span>
+            <p class="space-x-xs">
+              <span>無效票數</span>
+              <span>14,464,571 票</span>
             </p>
-            <p class="[&>*]:font-semibold [&>*]:h7 space-x-xs">
-              <span class="">有效票數</span>
-              <span class="">14,464,571 票</span>
+            <p class="space-x-xs">
+              <span>有效票數</span>
+              <span>14,464,571 票</span>
             </p>
           </div>
         </div>
       </div>
-      <div class="space-y-l">
-        <div class="flex justify-between items-center gap-l">
-          <div class="w-[120px] h-[120px] bg-blue-800"></div>
+      <div
+        v-show="isToggleArrow"
+        class="flex flex-row gap-x-s space-y-l sm:flex-col sm:gap-x-[0px]"
+      >
+        <div class="flex items-center justify-between gap-l">
+          <div
+            class="relative h-[72px] w-[72px] border-none border-blue-800 sm:h-[120px] sm:w-[120px]"
+          >
+            <Doughnut
+              :data="chartConfig.dataS2"
+              :options="chartConfig.optionsS2"
+              :style="myStyles"
+            />
+          </div>
         </div>
         <div class="space-y-l">
-          <div class="h7 font-semibold space-y-l">
-            <div class="flex gap-s">
+          <div class="h7 space-y-xs font-semibold">
+            <div class="flex gap-xxs sm:gap-s">
               <span
-                class="pr-[9px] pl-[8px] pt-[4px] pb-[3px] rounded-full text-white bg-numberThree h8 h-[24px]"
+                class="h8 h-[24px] rounded-full bg-numberThree pb-[3px] pl-[8px] pr-[9px] pt-[4px] text-white"
                 >3</span
               >
-              <div class="border-r-2 border-gray-400 pr-s w-[104px]">
-                <p class="h7 font-semibold">民主進步黨</p>
-                <p class="h8 flex justify-between items-center font-semibold">
-                  <span class="">蔡英文</span>
+              <div class="w-[104px] border-r-2 border-gray-400 pr-s">
+                <p class="sm:h7 h8 font-normal sm:font-semibold">民主進步黨</p>
+                <p class="h8 child:flex-none flex items-center justify-between font-semibold">
+                  <span>蔡英文</span>
                   <span class="px-[5px] align-middle">|</span>
-                  <span class="">賴清德</span>
+                  <span>賴清德</span>
                 </p>
               </div>
-              <div class="pl-s">
-                <p class="h7 font-semibold">57.13%</p>
-                <p class="h8 flex justify-between items-center">
-                  14,464,571 票
-                </p>
+              <div>
+                <p class="sm:h7 h8 font-normal sm:font-semibold">57.13%</p>
+                <p class="h8 flex flex-none items-center justify-between">14,464,571 票</p>
               </div>
             </div>
-            <div class="flex gap-s">
+            <div class="flex gap-xxs sm:gap-s">
               <span
-                class="pr-[9px] pl-[8px] pt-[4px] pb-[3px] rounded-full text-white bg-numberTwo h8 h-[24px]"
+                class="h8 h-[24px] rounded-full bg-numberTwo pb-[3px] pl-[8px] pr-[9px] pt-[4px] text-white"
                 >2</span
               >
-              <div class="border-r-2 border-gray-400 pr-s w-[104px]">
-                <p class="h7 font-semibold">中國國民黨</p>
-                <p class="h8 flex justify-between items-center font-semibold">
-                  <span class="">韓國瑜</span>
+              <div class="w-[104px] border-r-2 border-gray-400 pr-s">
+                <p class="sm:h7 h8 font-normal sm:font-semibold">中國國民黨</p>
+                <p class="h8 child:flex-none flex items-center justify-between font-semibold">
+                  <span>韓國瑜</span>
                   <span class="px-[5px] align-middle">|</span>
-                  <span class="">張善政</span>
+                  <span>張善政</span>
                 </p>
               </div>
-              <div class="pl-s">
+              <div>
                 <p class="h7 font-semibold">57.13%</p>
-                <p class="h8 flex justify-between items-center">
-                  14,464,571 票
-                </p>
+                <p class="h8 flex flex-none items-center justify-between">14,464,571 票</p>
               </div>
             </div>
-            <div class="flex gap-s">
+            <div class="flex gap-xxs sm:gap-s">
               <span
-                class="pr-[9px] pl-[8px] pt-[4px] pb-[3px] rounded-full text-white bg-numberOne h8 h-[24px]"
+                class="h8 h-[24px] rounded-full bg-numberOne pb-[3px] pl-[8px] pr-[9px] pt-[4px] text-white"
                 >1</span
               >
-              <div class="border-r-2 border-gray-400 pr-s w-[104px]">
+              <div class="w-[104px] border-r-2 border-gray-400 pr-s">
                 <p class="h7 font-semibold">親民黨</p>
-                <p class="h8 flex items-center font-semibold">
-                  <span class="">宋楚瑜</span>
+                <p class="h8 child:flex-none flex items-center justify-between font-semibold">
+                  <span>宋楚瑜</span>
                   <span class="px-[5px] align-middle">|</span>
-                  <span class="">余湘</span>
+                  <span>余湘</span>
                 </p>
               </div>
-              <div class="pl-s">
+              <div>
                 <p class="h7 font-semibold">57.13%</p>
-                <p class="h8 flex justify-between items-center">
-                  14,464,571 票
-                </p>
+                <p class="h8 flex flex-none items-center justify-between">14,464,571 票</p>
               </div>
             </div>
           </div>

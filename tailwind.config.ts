@@ -1,3 +1,5 @@
+const plugin = require("tailwindcss/plugin");
+
 export default {
   content: [
     "./components/**/*.{js,vue,ts}",
@@ -8,6 +10,9 @@ export default {
     "./error.vue",
   ],
   theme: {
+    screens: {
+      sm: "390px",
+    },
     fontFamily: {
       sans: ["Noto Sans", "sans-serif"],
     },
@@ -33,5 +38,26 @@ export default {
       },
     },
   },
-  plugins: ["prettier-plugin-tailwindcss"],
+  plugins: [
+    function ({ addVariant }) {
+      addVariant("child", "& > *");
+      addVariant("child-hover", "& > *:hover");
+      addVariant("hocus", ["&:hover", "&:focus"]);
+    },
+    plugin(function ({ matchVariant }) {
+      matchVariant(
+        "nth",
+        (value) => {
+          return `&:nth-child(${value})`;
+        },
+        {
+          values: {
+            1: "1",
+            2: "2",
+            3: "3",
+          },
+        },
+      );
+    }),
+  ],
 };

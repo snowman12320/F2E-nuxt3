@@ -1,0 +1,158 @@
+@mixin sm {
+  @media (min-width: 390px) {
+    @content;
+  }
+}
+@mixin md {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
+
+// base layer
+h1 {
+  @include md {
+    font-size: 56px;
+  }
+  font-size: 40px;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+h2 {
+  @include md {
+    font-size: 48px;
+  }
+  font-size: 32px;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+h3 {
+  @include md {
+    font-size: 40px;
+  }
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+h4 {
+  @include md {
+    font-size: 32px !important;
+  }
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+h5 {
+  @include md {
+    font-size: 24px;
+  }
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+h6 {
+  @include md {
+    font-size: 20px;
+    line-height: 1.2;
+  }
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 1.4;
+}
+
+.h7 {
+  @include md {
+    font-size: 16px;
+    line-height: 1.4;
+  }
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 1.4;
+}
+
+.h8 {
+  @include md {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 1.4;
+}
+
+// components layer
+.btn-default {
+  background-color: #262e49;
+  color: white;
+  &:hover {
+    background-color: #525982;
+  }
+  &:active {
+    background-color: #171c2c;
+  }
+  &:disabled {
+    cursor: not-allowed;
+    background-color: #ccc;
+    color: #737373;
+  }
+}
+
+.tab-default {
+  cursor: pointer;
+  border: #bfbfbf;
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 1.2;
+  color: #bfbfbf;
+  &:hover {
+    border-bottom: 4px;
+    font-weight: bold;
+    color: #262e49;
+    border-color: #262e49;
+  }
+}
+// @include md {
+//   font-size: 20px;
+//   padding: 0 12px;
+// }
+
+.tab-click {
+  border-bottom: 4px;
+  border-color: black;
+  font-weight: bold;
+  color: black;
+}
+
+.dropdown-default {
+  position: relative;
+  display: flex;
+  height: 36px;
+  width: 100%;
+  items: center;
+  justify-content: space-between;
+  border-radius: 8px;
+  border: 1px solid #bfbfbf;
+  background-color: white;
+  padding: 4px 12px;
+  &:hover {
+    cursor: pointer;
+    border: #bfbfbf;
+  }
+  @include sm {
+    height: 40px;
+    width: 156px;
+  }
+}
+
+.map-disabled {
+  cursor: not-allowed;
+  fill: #bfbfbf;
+  &:hover {
+    fill: #bfbfbf !important;
+  }
+}

@@ -1,11 +1,12 @@
 ### //// Schedule ///
 
-- nuxt state manage
+-
 -
 
 ### ////////////////// tailwind /////////////////
 
 - 要 npm run build 才有 tailwind.config
+-
 - +++ use bard
 
   > add tailwinid with all h tag
@@ -19,10 +20,28 @@
 
 - `npx tailwindcss init --full`
 
-// vscode plugin
+- plugins
+  https://stackoverflow.com/questions/67119992/how-to-access-all-the-direct-children-of-a-div-in-tailwindcss
+
+```
+    <p class="child:text-blue-500 space-x-xs">
+      <span>投票率</span>
+      <span>14,464,571 票</span>
+    </p>
+
+    <p class="space-x-xs">
+      <span class="nth-[1]:text-blue-500">投票率</span>
+      <span>14,464,571 票</span>
+    </p>
+```
+
+## // vscode plugin
 
 - x Tailwind Snippets
 - -x Tailwind Twin IntelliSense
+- +++ .prettierrc.js
+  https://ithelp.ithome.com.tw/articles/10294705
+  pnpm 也可，prettier套件也要設定on save 排版
 
 ### //////////// nuxt ///////////
 
@@ -32,21 +51,25 @@
 import { useMouse } from "@vueuse/core";
 ```
 
+- // 第一層要value 第二層不用
+  selectedListStore.value["區域"] = areaNames.value[0].district[0];
+
+## // state management
+
 - 內建狀態管理工具
 
 ```
 https://www.youtube.com/watch?v=q1oVtkqv8Ww
 ```
 
-// state management
--  全域使用，用nuxt link 以外跳轉會刷新
-export const useCount = () => useState<number>("count", () => Math.round(Math.random() * 1000));
--  區域內使用
- const counter = useState('counter', () => Math.round(Math.random() * 1000))
+- 全域使用，用nuxt link 以外跳轉會刷新
+  export const useCount = () => useState<number>("count", () => Math.round(Math.random() \* 1000));
+- 區域內使用
+  const counter = useState('counter', () => Math.round(Math.random() \* 1000))
 - 引用全域
-const counter = useCounter();
+  const counter = useCounter();
 
-// plugin
+### // plugin
 
 - vue Snippets for vue/nuxt projects
 
@@ -78,7 +101,15 @@ const cityNames = cityList?.data?._rawValue?.map((city: any) => city.name) || []
   selectedData.value[label as keyof typeof selectedData.value] = item;
 ```
 
-// emit
+- [Vue warn]: Failed to resolve component: P
+  If this is a native custom element, make sure to exclude it from component resolution via compilerOptions.isCustomElement.
+    <!-- <P class="h7">點擊選擇縣市、區、村里，可查看選舉結果</P> -->
+  xxx compilerOptions: {
+  isCustomElement: (tag) => tag.startsWith('P')
+  }
+
+## // emit
+
 ```
 // Import the defineEmits function
 const emit = defineEmits(['update:loading'])
@@ -98,7 +129,7 @@ const clearSelections = () => {
 };
 
 // template
-@update:loading="handleLoading" 
+@update:loading="handleLoading"
 //script
 const isLoading = ref(false);
 const handleLoading = (state: boolean) => {
@@ -106,6 +137,14 @@ const handleLoading = (state: boolean) => {
 };
 
 ```
+
+### // props
+
+import { defineProps } from 'vue'
+
+const props = defineProps(['data', 'options'])
+
+### //
 
 ```
 import _ from 'lodash';

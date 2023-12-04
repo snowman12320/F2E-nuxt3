@@ -8,7 +8,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "add component": "npx nuxi add component TaiwanBarView",
+    "add component": "npx nuxi add component RightBarView",
     "add api": "npx nuxi add api count",
     "add composable": "npx nuxi add composable count",
     "format": "npx prettier pages/index.vue --write",
@@ -29,8 +29,11 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
+    "@nuxt/ui": "^2.11.0",
+    "chart.js": "^4.4.0",
     "firebase": "^10.5.2",
     "prettier": "^3.1.0",
-    "prettier-plugin-tailwindcss": "^0.5.7"
+    "prettier-plugin-tailwindcss": "^0.5.7",
+    "vue-chartjs": "^5.2.0"
   }
 }

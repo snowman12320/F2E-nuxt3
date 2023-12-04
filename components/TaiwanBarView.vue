@@ -1,14 +1,11 @@
 <script lang="ts" setup>
-const selectedListStore = useSelectedListStore();
+const selectedListStore = useSelectedListStore()
 </script>
 
 <template>
-  <div class="w-[510px] h-[699px] border-black border-2 relative">
+  <div class="relative mt-3xl min-h-[699px] min-w-[510px] border-2 border-black">
     <!-- 連江 -->
-    <div
-      class="absolute top-[33px] left-[155px]"
-      @click="selectedListStore['縣市'] = '連江縣'"
-    >
+    <div class="absolute left-[155px] top-[33px]" @click="selectedListStore['縣市'] = '連江縣'">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="31"
@@ -17,19 +14,17 @@ const selectedListStore = useSelectedListStore();
         fill="none"
       >
         <path
-          class="hover:fill-[#7A85C2] cursor-pointer"
+          class="cursor-pointer hover:fill-[#7A85C2]"
           :class="{
-            'fill-[#6D76AD] stroke-[3] stroke-[#8894D8]':
-              selectedListStore['縣市'] === '連江縣',
+            'fill-[#6D76AD] stroke-[#8894D8] stroke-[3]': selectedListStore['縣市'] === '連江縣'
           }"
           d="M19.2536 21.6842C19.2536 24.3684 17.0574 26.5646 14.3732 26.5646H5.83253C3.14832 26.5646 0.952148 24.3684 0.952148 21.6842C0.952148 19 3.14832 16.8038 5.83253 16.8038H14.3732C17.0574 16.8038 19.2536 19 19.2536 21.6842Z"
           fill="#8894D8"
         />
         <path
-          class="hover:fill-[#7A85C2] cursor-pointer"
+          class="cursor-pointer hover:fill-[#7A85C2]"
           :class="{
-            'fill-[#6D76AD] stroke-[3] stroke-[#8894D8]':
-              selectedListStore['縣市'] === '連江縣',
+            'fill-[#6D76AD] stroke-[#8894D8] stroke-[3]': selectedListStore['縣市'] === '連江縣'
           }"
           d="M30.2345 7.04304C30.2345 9.72725 28.0384 11.9234 25.3542 11.9234H14.3733C11.6891 11.9234 9.49292 9.72725 9.49292 7.04304V5.82295C9.49292 3.13874 11.6891 0.942566 14.3733 0.942566H25.3542C28.0384 0.942566 30.2345 3.13874 30.2345 5.82295V7.04304Z"
           fill="#8894D8"
@@ -37,10 +32,7 @@ const selectedListStore = useSelectedListStore();
       </svg>
     </div>
     <!-- 金門 -->
-    <div
-      class="absolute top-[194px] left-[0px]"
-      @click="selectedListStore['縣市'] = '金門縣'"
-    >
+    <div class="absolute left-[0px] top-[194px]" @click="selectedListStore['縣市'] = '金門縣'">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="37"
@@ -49,10 +41,9 @@ const selectedListStore = useSelectedListStore();
         fill="none"
       >
         <path
-          class="hover:fill-[#7A85C2] cursor-pointer"
+          class="cursor-pointer hover:fill-[#7A85C2]"
           :class="{
-            'fill-[#6D76AD] stroke-[3] stroke-[#8894D8]':
-              selectedListStore['縣市'] === '金門縣',
+            'fill-[#6D76AD] stroke-[#8894D8] stroke-[3]': selectedListStore['縣市'] === '金門縣'
           }"
           d="M27 0C24.8 0 23 1.40001 23 3.20001C23 5.00001 21.4 7.20001 19.4 8.10001L17.6 8.89999C15.6 9.79999 14 9.29999 14 7.79999C14 6.29999 12.2 5 10 5H4C1.8 5 0 6.8 0 9V25C0 27.2 1.8 29 4 29H10C12.2 29 14 27.2 14 25V24.6C14 22.4 15.6 19.8 17.6 18.9L19.4 18.1C21.4 17.2 23 18.2 23 20.4V21.1C23 23.3 24.8 25.1 27 25.1H33C35.2 25.1 37 23.3 37 21.1V4.10001C37 1.90001 35.2 0.100006 33 0.100006H27V0Z"
           fill="#8894D8"
@@ -60,7 +51,7 @@ const selectedListStore = useSelectedListStore();
       </svg>
     </div>
     <!-- 基隆 -->
-    <div class="absolute top-[28.1px] left-[414px]">
+    <div class="absolute left-[414px] top-[28.1px]">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="37"
@@ -69,15 +60,15 @@ const selectedListStore = useSelectedListStore();
         fill="none"
       >
         <path
-          class="hover:fill-[#77B789] cursor-pointer"
-          :class="{ 'fill-[#84CB98] stroke-[3] stroke-[#84CB98]': false }"
+          class="cursor-pointer hover:fill-[#77B789]"
+          :class="{ 'fill-[#84CB98] stroke-[#84CB98] stroke-[3]': false }"
           d="M5.35801 13.0156C2.46546 12.551 0.322844 9.53137 0.644238 6.27943L0.751376 5.00189C1.07277 1.8661 3.75105 -0.340575 6.6436 0.123987L16.7139 1.74995C19.6065 2.21452 21.642 5.23417 21.3206 8.36996L21.1063 9.76365C20.6778 12.8994 17.9995 15.1061 15.107 14.6416L5.35801 13.0156Z"
           fill="#84CB98"
         />
       </svg>
     </div>
     <!-- 新北 -->
-    <div class="absolute top-[0px] left-[322px]">
+    <div class="absolute left-[322px] top-[0px]">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="141"
@@ -86,8 +77,8 @@ const selectedListStore = useSelectedListStore();
         fill="none"
       >
         <path
-          class="hover:fill-[#77B789] cursor-pointer"
-          :class="{ 'fill-[#84CB98] stroke-[3] stroke-[#84CB98]': false }"
+          class="cursor-pointer hover:fill-[#77B789]"
+          :class="{ 'fill-[#84CB98] stroke-[#84CB98] stroke-[3]': false }"
           d="M1.48314 43.3703C-0.615485 41.1538 -0.284127 37.9399 2.25631 36.1667L52.4024 1.14606C54.9428 -0.627138 58.8087 -0.294664 61.0178 1.81101L81.7831 21.2053C83.9922 23.311 85.5386 27.4115 85.2072 30.5146L84.1027 39.8239C83.7713 42.8162 85.8699 45.6976 88.9626 46.2517L112.158 50.0198C115.14 50.4631 117.902 48.4682 118.343 45.3651L119.448 37.3858C119.89 34.3935 122.541 32.2878 125.302 32.7311C128.063 33.1744 131.819 35.6126 133.365 38.2724L139.551 48.2466C141.097 50.7956 140.545 54.4528 138.115 56.3368L128.063 64.2054C125.633 66.0894 121.767 69.1925 119.448 71.0765L71.4005 109.754C69.0809 111.638 65.436 111.417 63.3373 109.2L1.48314 43.3703ZM33.9566 35.7234C31.6371 37.7182 31.3057 41.1538 33.2939 43.4811L61.4596 76.9502C63.4478 79.2775 66.8718 79.61 69.1914 77.6151L84.6549 64.5378C86.9745 62.543 87.3058 59.1074 85.3177 56.7801L57.2624 23.311C55.2742 20.9837 51.8501 20.6512 49.5306 22.6461L33.9566 35.7234Z"
           fill="#84CB98"
         />
@@ -108,11 +99,11 @@ const selectedListStore = useSelectedListStore();
         stroke-width="3"
       />
     </svg> -->
-    <div class="absolute top-[29px] left-[361px]">
+    <div class="absolute left-[361px] top-[29px]">
       <img src="~/assets/img/map/臺北市.png" alt="" />
     </div>
     <!-- 桃園市 -->
-    <div class="absolute top-[45.1px] left-[279px]">
+    <div class="absolute left-[279px] top-[45.1px]">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="103"
@@ -121,14 +112,14 @@ const selectedListStore = useSelectedListStore();
         fill="none"
       >
         <path
-          class="hover:fill-[#77B789] cursor-pointer"
-          :class="{ 'fill-[#84CB98] stroke-[3] stroke-[#84CB98]': false }"
+          class="cursor-pointer hover:fill-[#77B789]"
+          :class="{ 'fill-[#84CB98] stroke-[#84CB98] stroke-[3]': false }"
           d="M1.93951 29.2133C-0.284095 27.0992 -0.0617411 23.8725 2.38423 22.0922L30.6241 1.28513C33.07 -0.49515 36.8502 -0.161346 38.9626 2.06401L101.446 68.3796C103.558 70.6049 103.336 73.943 100.89 75.9458L78.4316 93.9712C76.0969 95.8627 72.3167 95.7514 70.0931 93.6374L1.93951 29.2133Z"
           fill="#84CB98"
         />
       </svg>
     </div>
-    <div class="absolute top-[45.1px] left-[279px]">
+    <div class="absolute left-[279px] top-[45.1px]">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="103"
@@ -137,8 +128,8 @@ const selectedListStore = useSelectedListStore();
         fill="none"
       >
         <path
-          class="hover:fill-[#77B789] cursor-pointer"
-          :class="{ 'fill-[#84CB98] stroke-[3] stroke-[#84CB98]': false }"
+          class="cursor-pointer hover:fill-[#77B789]"
+          :class="{ 'fill-[#84CB98] stroke-[#84CB98] stroke-[3]': false }"
           d="M1.93951 29.2133C-0.284095 27.0992 -0.0617411 23.8725 2.38423 22.0922L30.6241 1.28513C33.07 -0.49515 36.8502 -0.161346 38.9626 2.06401L101.446 68.3796C103.558 70.6049 103.336 73.943 100.89 75.9458L78.4316 93.9712C76.0969 95.8627 72.3167 95.7514 70.0931 93.6374L1.93951 29.2133Z"
           fill="#84CB98"
         />

@@ -34,7 +34,10 @@
   }
 
   .svg-rwd {
-    @apply h-[60%] w-[60%] sm:h-full sm:w-full;
+    @apply h-[5%] w-[5%];
+  }
+  .img-rwd {
+    @apply h-[auto] w-[auto];
   }
 }
 

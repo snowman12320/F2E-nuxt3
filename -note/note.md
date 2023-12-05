@@ -171,5 +171,8 @@ import _ from 'lodash';
 # //// TSC ///
 
 - 修改 要重新開啟 dev
+- sudo npm install -g ts-node
+
 
 ### //// git rebase origin/main > 拆遠端和本地的記錄黨並合併，同個記錄名稱，不能改名 > git rebase --continue > 就將兩個合併的，推上去 ///
+

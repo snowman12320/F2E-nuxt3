@@ -23,6 +23,7 @@ const handleTimeClick = () => {
     afterBg.value?.classList.add("hidden");
   }, 1000);
 };
+
 </script>
 
 <template>

@@ -27,3 +27,7 @@ export const optionsS2 = {
   maintainAspectRatio: false,
   borderWidth: 1
 }
+
+
+
+

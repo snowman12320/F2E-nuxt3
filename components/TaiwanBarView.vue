@@ -1,12 +1,18 @@
 <script lang="ts" setup>
-const selectedListStore = useSelectedListStore()
+const selectedListStore = useSelectedListStore();
 </script>
 
 <template>
-  <div class="relative mt-3xl min-h-[699px] min-w-[510px] border-2 border-black">
+  <div
+    class="relative mt-3xl min-h-[699px] min-w-[510px] border-2 border-black"
+  >
     <!-- 連江 -->
-    <div class="absolute left-[155px] top-[33px]" @click="selectedListStore['縣市'] = '連江縣'">
+    <div
+      class="absolute left-[155px] top-[33px]"
+      @click="selectedListStore['縣市'] = '連江縣'"
+    >
       <svg
+        class="svg-rwd"
         xmlns="http://www.w3.org/2000/svg"
         width="31"
         height="27"
@@ -16,7 +22,8 @@ const selectedListStore = useSelectedListStore()
         <path
           class="cursor-pointer hover:fill-[#7A85C2]"
           :class="{
-            'fill-[#6D76AD] stroke-[#8894D8] stroke-[3]': selectedListStore['縣市'] === '連江縣'
+            'fill-[#6D76AD] stroke-[#8894D8] stroke-[3]':
+              selectedListStore['縣市'] === '連江縣',
           }"
           d="M19.2536 21.6842C19.2536 24.3684 17.0574 26.5646 14.3732 26.5646H5.83253C3.14832 26.5646 0.952148 24.3684 0.952148 21.6842C0.952148 19 3.14832 16.8038 5.83253 16.8038H14.3732C17.0574 16.8038 19.2536 19 19.2536 21.6842Z"
           fill="#8894D8"
@@ -24,7 +31,8 @@ const selectedListStore = useSelectedListStore()
         <path
           class="cursor-pointer hover:fill-[#7A85C2]"
           :class="{
-            'fill-[#6D76AD] stroke-[#8894D8] stroke-[3]': selectedListStore['縣市'] === '連江縣'
+            'fill-[#6D76AD] stroke-[#8894D8] stroke-[3]':
+              selectedListStore['縣市'] === '連江縣',
           }"
           d="M30.2345 7.04304C30.2345 9.72725 28.0384 11.9234 25.3542 11.9234H14.3733C11.6891 11.9234 9.49292 9.72725 9.49292 7.04304V5.82295C9.49292 3.13874 11.6891 0.942566 14.3733 0.942566H25.3542C28.0384 0.942566 30.2345 3.13874 30.2345 5.82295V7.04304Z"
           fill="#8894D8"
@@ -32,8 +40,12 @@ const selectedListStore = useSelectedListStore()
       </svg>
     </div>
     <!-- 金門 -->
-    <div class="absolute left-[0px] top-[194px]" @click="selectedListStore['縣市'] = '金門縣'">
+    <div
+      class="absolute left-[0px] top-[194px]"
+      @click="selectedListStore['縣市'] = '金門縣'"
+    >
       <svg
+        class="svg-rwd"
         xmlns="http://www.w3.org/2000/svg"
         width="37"
         height="29"
@@ -43,7 +55,8 @@ const selectedListStore = useSelectedListStore()
         <path
           class="cursor-pointer hover:fill-[#7A85C2]"
           :class="{
-            'fill-[#6D76AD] stroke-[#8894D8] stroke-[3]': selectedListStore['縣市'] === '金門縣'
+            'fill-[#6D76AD] stroke-[#8894D8] stroke-[3]':
+              selectedListStore['縣市'] === '金門縣',
           }"
           d="M27 0C24.8 0 23 1.40001 23 3.20001C23 5.00001 21.4 7.20001 19.4 8.10001L17.6 8.89999C15.6 9.79999 14 9.29999 14 7.79999C14 6.29999 12.2 5 10 5H4C1.8 5 0 6.8 0 9V25C0 27.2 1.8 29 4 29H10C12.2 29 14 27.2 14 25V24.6C14 22.4 15.6 19.8 17.6 18.9L19.4 18.1C21.4 17.2 23 18.2 23 20.4V21.1C23 23.3 24.8 25.1 27 25.1H33C35.2 25.1 37 23.3 37 21.1V4.10001C37 1.90001 35.2 0.100006 33 0.100006H27V0Z"
           fill="#8894D8"
@@ -53,6 +66,7 @@ const selectedListStore = useSelectedListStore()
     <!-- 基隆 -->
     <div class="absolute left-[414px] top-[28.1px]">
       <svg
+        class="svg-rwd"
         xmlns="http://www.w3.org/2000/svg"
         width="37"
         height="29"
@@ -70,6 +84,7 @@ const selectedListStore = useSelectedListStore()
     <!-- 新北 -->
     <div class="absolute left-[322px] top-[0px]">
       <svg
+        class="svg-rwd"
         xmlns="http://www.w3.org/2000/svg"
         width="141"
         height="112"
@@ -86,6 +101,7 @@ const selectedListStore = useSelectedListStore()
     </div>
     <!-- 台北 -->
     <!-- <svg
+    class="svg-rwd"
       width="42"
       height="46"
       viewBox="0 0 42 46"
@@ -105,6 +121,7 @@ const selectedListStore = useSelectedListStore()
     <!-- 桃園市 -->
     <div class="absolute left-[279px] top-[45.1px]">
       <svg
+        class="svg-rwd"
         xmlns="http://www.w3.org/2000/svg"
         width="103"
         height="96"
@@ -121,6 +138,7 @@ const selectedListStore = useSelectedListStore()
     </div>
     <div class="absolute left-[279px] top-[45.1px]">
       <svg
+        class="svg-rwd"
         xmlns="http://www.w3.org/2000/svg"
         width="103"
         height="96"

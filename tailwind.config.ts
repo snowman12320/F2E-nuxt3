@@ -40,7 +40,7 @@ export default {
       },
       screens: {
         // 成功
-        // 'sm': '390px',
+        'sm': '1166px',
       },
     },
   },

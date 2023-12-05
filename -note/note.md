@@ -5,8 +5,9 @@
 
 ### ////////////////// tailwind /////////////////
 
-- 要 npm run build 才有 tailwind.config
--
+- +++ 要 npm run build 才有 tailwind.config
+  編譯和開發環境都要重啟 (都要重按pnpm) ，才會更新config
+
 - +++ use bard
 
   > add tailwinid with all h tag
@@ -39,6 +40,9 @@
 
 報錯就要刪掉，用官方的示範黨，找錯誤在哪，比如sm:'390px'就有錯
 ！！！sm 沒放在extend 所以md:xx[xx] 沒有md，導致報錯，要改就要全改，不然就放extend（就算是原本就有的sm，也應該放，就會直接覆蓋）
+- +++ main.css
+  - 有奇怪空格，就會無法排版
+  - 不用編譯和重開開發
 
 ## // vscode plugin
 

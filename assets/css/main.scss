@@ -1,3 +1,7 @@
+// ! 專案可以用 app.scss 去統一樣式
+:root {
+  --x: 123px;
+}
 @mixin sm {
   @media (min-width: 390px) {
     @content;
@@ -11,6 +15,7 @@
 
 // base layer
 h1 {
+  // ! 可以直接包 RWD的media
   @include md {
     font-size: 56px;
   }

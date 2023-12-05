@@ -1,25 +1,27 @@
 <script lang="ts" setup>
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
-import { Doughnut } from 'vue-chartjs'
-import * as chartConfig from '~/assets/js/chartConfig.ts'
-ChartJS.register(ArcElement, Tooltip)
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Doughnut } from "vue-chartjs";
+import * as chartConfig from "~/assets/js/chartConfig.ts";
+ChartJS.register(ArcElement, Tooltip);
 
-const mutableHeight = ref('inherit')
+const mutableHeight = ref("inherit");
 const myStyles = computed(() => ({
   height: `${mutableHeight.value} `,
-  width: 'inherit',
-  position: 'relative',
-  top: '0px',
-  left: '0px',
-  zIndex: '1'
-}))
+  width: "inherit",
+  position: "relative",
+  top: "0px",
+  left: "0px",
+  zIndex: "1",
+}));
 
-const isToggleArrow = ref(true)
+const isToggleArrow = ref(true);
 </script>
 
 <template>
-  <div class="mt-2xl sm:space-y-l rounded-lg bg-white p-l sm:h-[619px] sm:w-[270px]">
-    <div class="flex items-center justify-between relative " >
+  <div
+    class="mt-2xl rounded-lg bg-white p-l sm:h-[619px] sm:w-[270px] sm:space-y-l"
+  >
+    <div class="relative flex items-center justify-between">
       <h6 class="font-bold text-inherit sm:font-semibold">投票概況</h6>
       <Icon
         name="fa-solid:chevron-down"
@@ -27,9 +29,15 @@ const isToggleArrow = ref(true)
         :verticalFlip="isToggleArrow"
         class="w-[24px] opacity-100 sm:w-[55px] sm:opacity-0"
       />
-      <span @click="isToggleArrow = !isToggleArrow" class="absolute top-[0px] left-[0px] right-[0px] bottom-[0px] block sm:hidden cursor-pointer"></span>
+      <span
+        @click="isToggleArrow = !isToggleArrow"
+        class="absolute bottom-[0px] left-[0px] right-[0px] top-[0px] block cursor-pointer sm:hidden"
+      ></span>
     </div>
-    <section class="h-[0px] sm:h-auto space-y-3xl transition-all duration-500 overflow-y-hidden " :class="{ 'h-[280px] mt-l ': isToggleArrow }">
+    <section
+      class="h-[0px] space-y-3xl overflow-y-hidden transition-all duration-500 sm:h-auto"
+      :class="{ 'mt-l h-[280px] ': isToggleArrow }"
+    >
       <div
         class="flex flex-row items-center justify-start gap-x-s sm:flex-col sm:items-start sm:justify-center sm:gap-x-[0px] sm:space-y-l"
       >
@@ -65,9 +73,7 @@ const isToggleArrow = ref(true)
           </div>
         </div>
       </div>
-      <div
-        class="flex flex-row gap-x-s space-y-l sm:flex-col sm:gap-x-[0px]"
-      >
+      <div class="flex flex-row gap-x-s space-y-l sm:flex-col sm:gap-x-[0px]">
         <div class="flex items-center justify-between gap-l">
           <div
             class="relative h-[72px] w-[72px] border-none border-blue-800 sm:h-[120px] sm:w-[120px]"
@@ -88,7 +94,9 @@ const isToggleArrow = ref(true)
               >
               <div class="w-[104px] border-r-2 border-gray-400 pr-s">
                 <p class="sm:h7 h8 font-normal sm:font-semibold">民主進步黨</p>
-                <p class="h8 child:flex-none flex items-center justify-between font-semibold">
+                <p
+                  class="h8 flex items-center justify-between font-semibold child:flex-none"
+                >
                   <span>蔡英文</span>
                   <span class="px-[5px] align-middle">|</span>
                   <span>賴清德</span>
@@ -96,7 +104,9 @@ const isToggleArrow = ref(true)
               </div>
               <div>
                 <p class="sm:h7 h8 font-normal sm:font-semibold">57.13%</p>
-                <p class="h8 flex flex-none items-center justify-between">14,464,571 票</p>
+                <p class="h8 flex flex-none items-center justify-between">
+                  14,464,571 票
+                </p>
               </div>
             </div>
             <div class="flex gap-xxs sm:gap-s">
@@ -106,7 +116,9 @@ const isToggleArrow = ref(true)
               >
               <div class="w-[104px] border-r-2 border-gray-400 pr-s">
                 <p class="sm:h7 h8 font-normal sm:font-semibold">中國國民黨</p>
-                <p class="h8 child:flex-none flex items-center justify-between font-semibold">
+                <p
+                  class="h8 flex items-center justify-between font-semibold child:flex-none"
+                >
                   <span>韓國瑜</span>
                   <span class="px-[5px] align-middle">|</span>
                   <span>張善政</span>
@@ -114,7 +126,9 @@ const isToggleArrow = ref(true)
               </div>
               <div>
                 <p class="h7 font-semibold">57.13%</p>
-                <p class="h8 flex flex-none items-center justify-between">14,464,571 票</p>
+                <p class="h8 flex flex-none items-center justify-between">
+                  14,464,571 票
+                </p>
               </div>
             </div>
             <div class="flex gap-xxs sm:gap-s">
@@ -123,8 +137,10 @@ const isToggleArrow = ref(true)
                 >1</span
               >
               <div class="w-[104px] border-r-2 border-gray-400 pr-s">
-                <p class="h7 font-semibold">親民黨</p>
-                <p class="h8 child:flex-none flex items-center justify-between font-semibold">
+                <p class="sm:h7 h8 font-normal sm:font-semibold">親民黨</p>
+                <p
+                  class="h8 flex items-center justify-between font-semibold child:flex-none"
+                >
                   <span>宋楚瑜</span>
                   <span class="px-[5px] align-middle">|</span>
                   <span>余湘</span>
@@ -132,7 +148,9 @@ const isToggleArrow = ref(true)
               </div>
               <div>
                 <p class="h7 font-semibold">57.13%</p>
-                <p class="h8 flex flex-none items-center justify-between">14,464,571 票</p>
+                <p class="h8 flex flex-none items-center justify-between">
+                  14,464,571 票
+                </p>
               </div>
             </div>
           </div>

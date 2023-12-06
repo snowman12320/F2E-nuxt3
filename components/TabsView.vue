@@ -2,6 +2,7 @@
 import _ from "lodash";
 const selectedListStore = useSelectedListStore();
 const isLoading = useLoading();
+import { getTownData } from "~/composables/getTownData";
 
 const tabName = ref("presidential");
 const selectTab = (tab: string) => {
@@ -17,6 +18,7 @@ const areaNames = computed(() => {
     (city: any) => city.name === selectedListStore.value["縣市"],
   );
 });
+const townNames = ref([]);
 
 const toggleSelectNames = ref("");
 const toggleSelect = (select: string) => {
@@ -52,6 +54,7 @@ const clearSelections = () => {
     區域: "",
     鄉鎮: "",
   };
+  townNames.value = [];
   toggleSelectNames.value = "";
 
   isLoading.value = true;
@@ -64,11 +67,24 @@ watch(
   () => selectedListStore.value["縣市"],
   (newValue, oldValue) => {
     if (Boolean(newValue) && newValue !== oldValue) {
+      townNames.value = [];
       selectedListStore.value["區域"] = areaNames.value[0].district[0];
-      selectedListStore.value["鄉鎮"] = areaNames.value[0].district[0];
+
+      if (newValue) {
+        townNames.value = getTownData(selectedListStore.value["縣市"]);
+        townNames.value.then((resolvedArray) => {
+          //! Now you can work with the resolvedArray,this will log the array elements (promise)
+          townNames.value = resolvedArray;
+          selectedListStore.value["鄉鎮"] = townNames.value[0];
+        });
+      }
     }
   },
 );
+
+setTimeout(() => {
+  selectedListStore.value["縣市"] = "南投縣";
+}, 100);
 </script>
 
 <template>
@@ -86,9 +102,9 @@ watch(
         @click="selectTab('legislative')"
         :class="{ 'tab-click': tabName === 'legislative' }"
       >
-        第10任 立法委員選舉
+        第14任 總統副總統大選
       </h6>
-      <!-- <h6>{{ selectedListStore }}</h6> -->
+      <h6>{{ selectedListStore }}</h6>
     </div>
     <div
       class="flex h-full w-full items-center justify-start gap-xxs sm:gap-[20px]"
@@ -98,20 +114,34 @@ watch(
       >
         <div v-for="(label, index) in ['縣市', '區域', '鄉鎮']" :key="index">
           <div class="relative">
-            <div
-              class="dropdown-default"
-              @click="toggleSelect(label)"
-              :class="{ '!border-[#000]': toggleSelectNames == label }"
-            >
-              <h6 class="flex-none font-semibold text-inherit sm:w-[100px]">
-                {{ selectedListStore[label] || "請選擇" + label }}
-              </h6>
-              <Icon
-                name="fa-solid:chevron-down"
-                width="55"
-                :verticalFlip="toggleSelectNames == label"
-                class="w-[24px] sm:w-[55px]"
-              />
+            <div class="relative overflow-hidden">
+              <div
+                @click="toggleSelect(label)"
+                class="dropdown-default"
+                :class="{ '!border-[#000]': toggleSelectNames == label }"
+              >
+                <h6 class="flex-none font-semibold text-inherit sm:w-[100px]">
+                  {{ selectedListStore[label] || "請選擇" + label }}
+                </h6>
+                <Icon
+                  name="fa-solid:chevron-down"
+                  width="55"
+                  :verticalFlip="toggleSelectNames == label"
+                  class="w-[24px] sm:w-[55px]"
+                />
+              </div>
+              <span
+                :class="{
+                  ' absolute inset-[0] cursor-not-allowed bg-white/70':
+                    label == '區域' && !areaNames[0],
+                }"
+              ></span>
+              <span
+                :class="{
+                  ' absolute inset-[0] cursor-not-allowed bg-white/70':
+                    label == '鄉鎮' && townNames.length == 0,
+                }"
+              ></span>
             </div>
             <ul
               v-show="toggleSelectNames == label"
@@ -123,55 +153,52 @@ watch(
               >
                 請選擇{{ label }}
               </li>
-              <template v-if="label == '縣市'">
-                <li
-                  class="block w-full cursor-pointer px-l py-xxs text-xl font-semibold hover:bg-neutral-200"
-                  :class="{
-                    'bg-neutral-200': selectedListStore[label] === item,
-                  }"
-                  v-for="(item, index) in cityNames"
-                  :key="index"
-                  :value="item"
-                  @click="selectItem(label, item)"
-                >
-                  {{ item }}
-                </li>
-              </template>
-              <template v-if="areaNames[0]">
-                <li
-                  class="block w-full cursor-pointer px-l py-xxs text-xl font-semibold hover:bg-neutral-200"
-                  :class="{
-                    'bg-neutral-200': selectedListStore[label] === item,
-                  }"
-                  v-for="(item, index) in areaNames[0].district"
-                  :key="index"
-                  :value="item"
-                  @click="selectItem(label, item)"
-                >
-                  {{ item }}
-                </li>
-              </template>
-              <template v-if="false">
-                <li
-                  class="block w-full cursor-pointer px-l py-xxs text-xl font-semibold hover:bg-neutral-200"
-                  :class="{
-                    'bg-neutral-200': selectedListStore[label] === item,
-                  }"
-                  v-for="(item, index) in localNames[0].district"
-                  :key="index"
-                  :value="item"
-                  @click="selectItem(label, item)"
-                >
-                  {{ item }}
-                </li>
-              </template>
+              <li
+                v-if="toggleSelectNames == '縣市'"
+                class="block w-full cursor-pointer px-l py-xxs text-xl font-semibold hover:bg-neutral-200"
+                :class="{
+                  'bg-neutral-200': selectedListStore[label] === item,
+                }"
+                v-for="(item, index) in cityNames"
+                :key="index"
+                :value="item"
+                @click="selectItem(label, item)"
+              >
+                {{ item }}
+              </li>
+              <li
+                v-else-if="areaNames[0] && toggleSelectNames == '區域'"
+                class="block w-full cursor-pointer px-l py-xxs text-xl font-semibold hover:bg-neutral-200"
+                :class="{
+                  'bg-neutral-200': selectedListStore[label] === item,
+                }"
+                v-for="(item, index) in areaNames[0].district"
+                :key="index + 100"
+                :value="item"
+                @click="selectItem(label, item)"
+              >
+                {{ item }}
+              </li>
+              <li
+                v-else-if="toggleSelectNames == '鄉鎮' && townNames"
+                class="block w-full cursor-pointer px-l py-xxs text-xl font-semibold hover:bg-neutral-200"
+                :class="{
+                  'bg-neutral-200': selectedListStore[label] === item,
+                }"
+                v-for="(item, index) in townNames"
+                :key="index + 200"
+                :value="item"
+                @click="selectItem(label, item)"
+              >
+                {{ item }}
+              </li>
             </ul>
           </div>
         </div>
       </div>
       <button
         type="button"
-        class="btn-default flex h-[120px] w-[10%] cursor-pointer items-center gap-xs rounded-lg border py-xxs sm:h-[35px] sm:w-[88px] sm:justify-center sm:px-s"
+        class="btn-default flex h-[120px] w-[10%] cursor-pointer items-center justify-center gap-xs rounded-lg border py-xxs sm:h-[35px] sm:w-[88px] sm:px-s"
         @click="clearSelections"
         :disabled="false"
       >

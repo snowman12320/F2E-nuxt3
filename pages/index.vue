@@ -1,12 +1,14 @@
 <script setup lang="ts">
-const isLoading = useLoading();
-
 // USEVUE 調整true false植 會有問題
 // const [loading, toggleLoading] = useToggle();
 
+const isLoading = useLoading();
 const isDark = useDark();
 const afterBg = ref(); // do not use ref(null)
 const toggleDark = useToggle(isDark);
+
+let timerId = null;
+
 onMounted(() => {
   setTimeout(() => {
     if (isDark) {
@@ -14,20 +16,23 @@ onMounted(() => {
     }
   }, 1000);
 });
+onUnmounted(() => {
+  if (timerId) {
+    clearTimeout(timerId);
+  }
+});
 
 const handleTimeClick = () => {
   toggleDark();
   afterBg.value?.classList.remove("hidden");
-  setTimeout(() => {
-    afterBg.value?.classList.remove("hidden");
+  timerId = setTimeout(() => {
     afterBg.value?.classList.add("hidden");
   }, 1000);
 };
-
 </script>
 
 <template>
-  <div class="max-h-screen overflow-y-auto bg-neutral-100">
+  <div class="min-h-screen !overflow-y-hidden bg-neutral-100">
     <LoadingView :loading="isLoading" />
     <nav
       class="relative overflow-hidden bg-primary"

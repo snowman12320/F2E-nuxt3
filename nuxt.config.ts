@@ -7,7 +7,7 @@ export default defineNuxtConfig({
     "nuxt-lodash",
     "nuxt-icon",
   ],
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   css: ["~/assets/css/main.css"],
   postcss: {
     plugins: {

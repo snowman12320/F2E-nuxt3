@@ -15,11 +15,52 @@ const myStyles = computed(() => ({
 }));
 
 const isToggleArrow = ref(true);
+
+const updateWindowSize = () => {
+  if (window.innerWidth < 640) {
+    isToggleArrow.value = false;
+  } else {
+    isToggleArrow.value = true;
+  }
+};
+onMounted(() => {
+  window.addEventListener("resize", updateWindowSize);
+  // 立即調用一次，以確保初始狀態正確
+  updateWindowSize();
+});
+onBeforeUnmount(() => {
+  window.removeEventListener("resize", updateWindowSize);
+});
+
+// Move hardcoded data to a reactive property
+const voteData = ref([
+  {
+    party: "民主進步黨",
+    candidates: ["蔡英文", "賴清德"],
+    percentage: "57.13%",
+    votes: "14,464,571 票",
+    color: "bg-numberThree",
+  },
+  {
+    party: "中國國民黨",
+    candidates: ["韓國瑜", "張善政"],
+    percentage: "57.13%",
+    votes: "14,464,571 票",
+    color: "bg-numberTwo",
+  },
+  {
+    party: "親民黨",
+    candidates: ["宋楚瑜", "余湘"],
+    percentage: "57.13%",
+    votes: "14,464,571 票",
+    color: "bg-numberOne",
+  },
+]);
 </script>
 
 <template>
   <div
-    class="mt-2xl rounded-lg bg-white p-l sm:h-[619px] sm:w-[270px] sm:space-y-l"
+    class="mt-2xl h-auto rounded-lg bg-white p-l sm:h-full sm:w-[270px] sm:space-y-l"
   >
     <div class="relative flex items-center justify-between">
       <h6 class="font-bold text-inherit sm:font-semibold">投票概況</h6>
@@ -35,7 +76,7 @@ const isToggleArrow = ref(true);
       ></span>
     </div>
     <section
-      class="h-[0px] space-y-3xl overflow-y-hidden transition-all duration-500 sm:h-auto"
+      class="h-[0px] space-y-xl sm:space-y-3xl overflow-y-hidden transition-all duration-500 sm:h-auto"
       :class="{ 'mt-l h-[280px] ': isToggleArrow }"
     >
       <div
@@ -86,70 +127,33 @@ const isToggleArrow = ref(true);
           </div>
         </div>
         <div class="space-y-l">
-          <div class="h7 space-y-xs font-semibold">
+          <div
+            class="h7 space-y-xs font-semibold"
+            v-for="(data, index) in voteData"
+            :key="index"
+          >
             <div class="flex gap-xxs sm:gap-s">
               <span
-                class="h8 h-[24px] rounded-full bg-numberThree pb-[3px] pl-[8px] pr-[9px] pt-[4px] text-white"
-                >3</span
+                class="h8 h-[24px] rounded-full pb-[3px] pl-[8px] pr-[9px] pt-[4px] text-white"
+                :class="data.color"
+                >{{ index + 1 }}</span
               >
               <div class="w-[104px] border-r-2 border-gray-400 pr-s">
-                <p class="sm:h7 h8 font-normal sm:font-semibold">民主進步黨</p>
+                <p class="sm:h7 h8 font-normal sm:font-semibold">
+                  {{ data.party }}
+                </p>
                 <p
                   class="h8 flex items-center justify-between font-semibold child:flex-none"
                 >
-                  <span>蔡英文</span>
+                  <span>{{ data.candidates[0] }}</span>
                   <span class="px-[5px] align-middle">|</span>
-                  <span>賴清德</span>
+                  <span>{{ data.candidates[1] }}</span>
                 </p>
               </div>
               <div>
-                <p class="sm:h7 h8 font-normal sm:font-semibold">57.13%</p>
+                <p class="h7 font-semibold">{{ data.percentage }}</p>
                 <p class="h8 flex flex-none items-center justify-between">
-                  14,464,571 票
-                </p>
-              </div>
-            </div>
-            <div class="flex gap-xxs sm:gap-s">
-              <span
-                class="h8 h-[24px] rounded-full bg-numberTwo pb-[3px] pl-[8px] pr-[9px] pt-[4px] text-white"
-                >2</span
-              >
-              <div class="w-[104px] border-r-2 border-gray-400 pr-s">
-                <p class="sm:h7 h8 font-normal sm:font-semibold">中國國民黨</p>
-                <p
-                  class="h8 flex items-center justify-between font-semibold child:flex-none"
-                >
-                  <span>韓國瑜</span>
-                  <span class="px-[5px] align-middle">|</span>
-                  <span>張善政</span>
-                </p>
-              </div>
-              <div>
-                <p class="h7 font-semibold">57.13%</p>
-                <p class="h8 flex flex-none items-center justify-between">
-                  14,464,571 票
-                </p>
-              </div>
-            </div>
-            <div class="flex gap-xxs sm:gap-s">
-              <span
-                class="h8 h-[24px] rounded-full bg-numberOne pb-[3px] pl-[8px] pr-[9px] pt-[4px] text-white"
-                >1</span
-              >
-              <div class="w-[104px] border-r-2 border-gray-400 pr-s">
-                <p class="sm:h7 h8 font-normal sm:font-semibold">親民黨</p>
-                <p
-                  class="h8 flex items-center justify-between font-semibold child:flex-none"
-                >
-                  <span>宋楚瑜</span>
-                  <span class="px-[5px] align-middle">|</span>
-                  <span>余湘</span>
-                </p>
-              </div>
-              <div>
-                <p class="h7 font-semibold">57.13%</p>
-                <p class="h8 flex flex-none items-center justify-between">
-                  14,464,571 票
+                  {{ data.votes }}
                 </p>
               </div>
             </div>

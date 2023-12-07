@@ -4,7 +4,7 @@ const selectedListStore = useSelectedListStore();
 
 <template>
   <div
-    class="relative mt-3xl min-h-[472px] min-w-[344px] border-2 border-black/10 sm:min-h-[699px] sm:min-w-[510px]"
+    class="relative mt-3xl min-h-[472px] min-w-[344px] sm:min-h-[650px] sm:min-w-[450px]"
   >
     <svg
       viewBox="0 0 510 700"

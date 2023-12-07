@@ -1,41 +1,55 @@
 <script lang="ts" setup>
 const selectedListStore = useSelectedListStore();
 import { getCityVoteData } from "~/composables/getTownData";
-
-// const cityData = computed(async () => {
-//   const importedModule = await import(`~/assets/json/2020/${selectedListStore.value["縣市"]}.json`);
-//   const townArray = importedModule.default;
-//   return townArray;
-// });
-// console.log(cityData.value);
+// import { get as _get, trim as _trim, isEqual as _isEqual } from 'lodash';
+import _ from "lodash";
 
 const cityVote = ref({});
 const areaVote = ref({});
+const townVote = ref({});
 
 watch(
   () => selectedListStore.value["縣市"],
-  (newValue, oldValue) => {
+  (newValue) => {
     cityVote.value = {};
     if (newValue) {
       getCityVoteData(selectedListStore.value["縣市"]).then((result) => {
         cityVote.value = result[0];
-        // console.log(result[0]);
+        // console.log(cityVote.value);
       });
     }
   },
 );
+
 watch(
   () => selectedListStore.value["區域"],
-  (newValue, oldValue) => {
-    console.log(newValue, oldValue);
-    areaVote.value = {};
+  async (newValue) => {
     if (newValue) {
       getAreaVoteData(selectedListStore.value["縣市"]).then((result) => {
-        areaVote.value = result;
-        areaVote.value.filter((item) => {
-          item["城市"] == selectedListStore.value["區域"];
+        areaVote.value = {};
+        areaVote.value = result.map((item) => {
+          item["城市"] = _.trim(item["城市"]);
+          return item;
         });
-        console.log(areaVote.value);
+        areaVote.value = areaVote.value.filter((item) =>
+          _.isEqual(item["城市"], newValue),
+        );
+        // console.log(areaVote.value[0]);
+      });
+    }
+  },
+);
+
+watch(
+  () => selectedListStore.value["鄉鎮"],
+  (newValue) => {
+    if (newValue) {
+      getTownVoteData(selectedListStore.value["縣市"]).then((result) => {
+        townVote.value = {};
+        townVote.value = result.filter((item) =>
+          _.isEqual(item["鄉鎮"], newValue),
+        );
+        // console.log(townVote.value[0]);
       });
     }
   },
@@ -251,9 +265,13 @@ watch(
       </div>
     </div>
 
-    <div v-else class="space-x-l">
+    <div
+      v-else
+      class="relative flex space-x-l overflow-x-scroll py-xxs sm:flex-col sm:space-x-[0] sm:space-y-s"
+    >
       <div
-        class="h-[201px] w-[260px] rounded-lg border-2 border-[#84CB98] bg-[#EDF7F0] px-l py-s"
+        class="h-[201px] w-[260px] flex-none rounded-lg border-2 border-[#84CB98] bg-[#EDF7F0] px-l py-s"
+        v-show="Object.keys(cityVote).length > 0"
       >
         <div class="flex flex-col justify-center space-y-s">
           <h6 class="font-semibold">{{ selectedListStore["縣市"] }}</h6>
@@ -355,8 +373,250 @@ watch(
           </div>
         </div>
       </div>
+      <!-- 區域 -->
+      <div
+        v-show="Object.keys(areaVote[0]).length > 0"
+        class="h-[201px] w-[260px] flex-none rounded-lg border-2 border-[#84CB98] bg-[#EDF7F0] px-l py-s"
+      >
+        <div class="flex flex-col justify-center space-y-s">
+          <h6 class="font-semibold">{{ selectedListStore["區域"] }}</h6>
+          <div class="h7 space-y-s font-semibold">
+            <div class="flex gap-xxs sm:gap-s">
+              <span
+                class="h8 h-[24px] rounded-full bg-numberThree pb-[3px] pl-[8px] pr-[9px] pt-[4px] text-white"
+                >3</span
+              >
+              <div class="w-[104px] border-r-2 border-gray-400 pr-s">
+                <p class="sm:h7 h8 font-semibold sm:font-semibold">
+                  民主進步黨
+                </p>
+                <p
+                  class="h8 flex items-center justify-between font-semibold child:flex-none"
+                >
+                  <span>蔡英文</span>
+                  <span class="px-[5px] align-middle">|</span>
+                  <span>賴清德</span>
+                </p>
+              </div>
+              <div>
+                <p class="sm:h7 h8 font-semibold sm:font-semibold">
+                  {{
+                    (
+                      (areaVote[0]["蔡英文"].replace(/,/g, "") /
+                        areaVote[0]["有效票數"].replace(/,/g, "")) *
+                      100
+                    ).toFixed(1)
+                  }}%
+                </p>
+                <p class="h8 flex flex-none items-center justify-between">
+                  {{ areaVote[0]["蔡英文"] }} 票
+                </p>
+              </div>
+            </div>
+            <div class="flex gap-xxs sm:gap-s">
+              <span
+                class="h8 h-[24px] rounded-full bg-numberTwo pb-[3px] pl-[8px] pr-[9px] pt-[4px] text-white"
+                >2</span
+              >
+              <div class="w-[104px] border-r-2 border-gray-400 pr-s">
+                <p class="sm:h7 h8 font-semibold sm:font-semibold">
+                  中國國民黨
+                </p>
+                <p
+                  class="h8 flex items-center justify-between font-semibold child:flex-none"
+                >
+                  <span>韓國瑜</span>
+                  <span class="px-[5px] align-middle">|</span>
+                  <span>張善政</span>
+                </p>
+              </div>
+              <div>
+                <p class="h7 font-semibold">
+                  {{
+                    (
+                      (areaVote[0]["韓國瑜"].replace(/,/g, "") /
+                        areaVote[0]["有效票數"].replace(/,/g, "")) *
+                      100
+                    ).toFixed(1)
+                  }}%
+                </p>
+                <p class="h8 flex flex-none items-center justify-between">
+                  {{ areaVote[0]["韓國瑜"] }} 票
+                </p>
+              </div>
+            </div>
+            <div class="flex gap-xxs sm:gap-s">
+              <span
+                class="h8 h-[24px] rounded-full bg-numberOne pb-[3px] pl-[8px] pr-[9px] pt-[4px] text-white"
+                >1</span
+              >
+              <div class="w-[104px] border-r-2 border-gray-400 pr-s">
+                <p class="sm:h7 h8 font-normal sm:font-semibold">親民黨</p>
+                <p
+                  class="h8 flex items-center justify-between font-semibold child:flex-none"
+                >
+                  <span>宋楚瑜</span>
+                  <span class="px-[5px] align-middle">|</span>
+                  <span>余湘</span>
+                </p>
+              </div>
+              <div>
+                <p class="h7 font-semibold">
+                  {{
+                    (
+                      (areaVote[0]["宋楚瑜"].replace(/,/g, "") /
+                        areaVote[0]["有效票數"].replace(/,/g, "")) *
+                      100
+                    ).toFixed(1)
+                  }}%
+                </p>
+                <p class="h8 flex flex-none items-center justify-between">
+                  {{ areaVote[0]["宋楚瑜"] }} 票
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 鄉鎮 -->
+      <div
+        v-show="Object.keys(townVote[0]).length > 0"
+        class="h-[201px] w-[260px] flex-none rounded-lg border-2 border-[#84CB98] bg-[#EDF7F0] px-l py-s"
+      >
+        <div class="flex flex-col justify-center space-y-s">
+          <h6 class="font-semibold">{{ selectedListStore["鄉鎮"] }}</h6>
+          <div class="h7 space-y-s font-semibold">
+            <div class="flex gap-xxs sm:gap-s">
+              <span
+                class="h8 h-[24px] rounded-full bg-numberThree pb-[3px] pl-[8px] pr-[9px] pt-[4px] text-white"
+                >3</span
+              >
+              <div class="w-[104px] border-r-2 border-gray-400 pr-s">
+                <p class="sm:h7 h8 font-semibold sm:font-semibold">
+                  民主進步黨
+                </p>
+                <p
+                  class="h8 flex items-center justify-between font-semibold child:flex-none"
+                >
+                  <span>蔡英文</span>
+                  <span class="px-[5px] align-middle">|</span>
+                  <span>賴清德</span>
+                </p>
+              </div>
+              <div>
+                <p class="sm:h7 h8 font-semibold sm:font-semibold">
+                  {{
+                    (
+                      (townVote[0]["蔡英文"].replace(/,/g, "") /
+                        townVote[0]["有效票數"].replace(/,/g, "")) *
+                      100
+                    ).toFixed(1)
+                  }}%
+                </p>
+                <p class="h8 flex flex-none items-center justify-between">
+                  {{ townVote[0]["蔡英文"] }} 票
+                </p>
+              </div>
+            </div>
+            <div class="flex gap-xxs sm:gap-s">
+              <span
+                class="h8 h-[24px] rounded-full bg-numberTwo pb-[3px] pl-[8px] pr-[9px] pt-[4px] text-white"
+                >2</span
+              >
+              <div class="w-[104px] border-r-2 border-gray-400 pr-s">
+                <p class="sm:h7 h8 font-semibold sm:font-semibold">
+                  中國國民黨
+                </p>
+                <p
+                  class="h8 flex items-center justify-between font-semibold child:flex-none"
+                >
+                  <span>韓國瑜</span>
+                  <span class="px-[5px] align-middle">|</span>
+                  <span>張善政</span>
+                </p>
+              </div>
+              <div>
+                <p class="h7 font-semibold">
+                  {{
+                    (
+                      (townVote[0]["韓國瑜"].replace(/,/g, "") /
+                        townVote[0]["有效票數"].replace(/,/g, "")) *
+                      100
+                    ).toFixed(1)
+                  }}%
+                </p>
+                <p class="h8 flex flex-none items-center justify-between">
+                  {{ townVote[0]["韓國瑜"] }} 票
+                </p>
+              </div>
+            </div>
+            <div class="flex gap-xxs sm:gap-s">
+              <span
+                class="h8 h-[24px] rounded-full bg-numberOne pb-[3px] pl-[8px] pr-[9px] pt-[4px] text-white"
+                >1</span
+              >
+              <div class="w-[104px] border-r-2 border-gray-400 pr-s">
+                <p class="sm:h7 h8 font-normal sm:font-semibold">親民黨</p>
+                <p
+                  class="h8 flex items-center justify-between font-semibold child:flex-none"
+                >
+                  <span>宋楚瑜</span>
+                  <span class="px-[5px] align-middle">|</span>
+                  <span>余湘</span>
+                </p>
+              </div>
+              <div>
+                <p class="h7 font-semibold">
+                  {{
+                    (
+                      (townVote[0]["宋楚瑜"].replace(/,/g, "") /
+                        townVote[0]["有效票數"].replace(/,/g, "")) *
+                      100
+                    ).toFixed(1)
+                  }}%
+                </p>
+                <p class="h8 flex flex-none items-center justify-between">
+                  {{ townVote[0]["宋楚瑜"] }} 票
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </main>
 </template>
 
-<style scoped></style>
+<style lang="scss" scoped>
+html {
+  scroll-behavior: smooth;
+  // scroll-padding: 550px; /* 設定滾動的距離 */
+}
+/* 將滾動條的顏色更改為紅色 */
+::-webkit-scrollbar {
+  background-color: transparent;
+}
+
+/* 將滾動條的寬度更改為 10px */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* 將滾動條的高度更改為 20px */
+::-webkit-scrollbar {
+  height: 10px;
+}
+
+/* 將滾動條的按鈕顏色更改為藍色 */
+::-webkit-scrollbar-button {
+  background-color: #eee;
+  border-radius: 10%;
+  display: none;
+}
+
+/* 將滾動條的滾動滑塊顏色更改為綠色 */
+::-webkit-scrollbar-thumb {
+  background-color: #aaa;
+  border-radius: 20%;
+}
+</style>

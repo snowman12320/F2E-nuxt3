@@ -1,15 +1,27 @@
 <script setup lang="ts">
+interface City {
+  name: string;
+  district: string[];
+}
+interface SelectedListStore {
+  value: {
+    縣市: string;
+    區域: string;
+    鄉鎮: string;
+  };
+}
+
 import _ from "lodash";
-const selectedListStore = useSelectedListStore();
+const selectedListStore: SelectedListStore = useSelectedListStore();
 const isLoading = useLoading();
 import { getTownData } from "~/composables/getTownData";
 
 const tabName = ref("presidential");
-const selectTab = (tab: string) => {
+function selectTab(tab: string) {
   tabName.value = tab;
-};
+}
 
-const SelectCityData = await useFetch("/api/SelectCityData");
+const SelectCityData = await useFetch<City[]>("/api/SelectCityData");
 const cityNames = computed(() => {
   return SelectCityData?.data?._rawValue?.map((city: any) => city.name) || [];
 });
@@ -18,37 +30,23 @@ const areaNames = computed(() => {
     (city: any) => city.name === selectedListStore.value["縣市"],
   );
 });
-const townNames = ref([]);
+const townNames = ref<Promise<string[]>>([]);
 
 const toggleSelectNames = ref("");
-const toggleSelect = (select: string) => {
-  if (select === toggleSelectNames.value) {
-    toggleSelectNames.value = "";
+function toggleSelect(select: string) {
+  toggleSelectNames.value = select === toggleSelectNames.value ? "" : select;
+}
+
+function selectItem(label: string, item: string) {
+  selectedListStore.value[label] = item;
+  toggleSelectNames.value = "";
+}
+
+function clearSelections() {
+  if (_.every(selectedListStore.value, _.isEmpty)) {
+    alert("already empty clear");
     return;
   }
-  toggleSelectNames.value = select;
-};
-
-const selectItem = (label: string, item: string) => {
-  switch (label) {
-    case "縣市":
-      selectedListStore.value[label] = item;
-      break;
-    case "區域":
-      selectedListStore.value[label] = item;
-      break;
-    case "鄉鎮":
-      selectedListStore.value[label] = item;
-      break;
-  }
-  toggleSelectNames.value = "";
-};
-
-const clearSelections = () => {
-  // if (_.every(selectedData.value, _.isEmpty)) {
-  //   alert("already empty clear");
-  //   return;
-  // }
   selectedListStore.value = {
     縣市: "",
     區域: "",
@@ -61,11 +59,11 @@ const clearSelections = () => {
   setTimeout(() => {
     isLoading.value = false;
   }, 500);
-};
+}
 
 watch(
   () => selectedListStore.value["縣市"],
-  (newValue, oldValue) => {
+  async (newValue, oldValue) => {
     if (Boolean(newValue) && newValue !== oldValue) {
       townNames.value = [];
       selectedListStore.value["區域"] = areaNames.value[0].district[0];
@@ -104,7 +102,7 @@ setTimeout(() => {
       >
         第14任 總統副總統大選
       </h6>
-      <h6>{{ selectedListStore }}</h6>
+      <!-- <h6>{{ selectedListStore }}</h6> -->
     </div>
     <div
       class="flex h-full w-full items-center justify-start gap-xxs sm:gap-[20px]"
@@ -144,6 +142,7 @@ setTimeout(() => {
               ></span>
             </div>
             <ul
+              id="scrollbar"
               v-show="toggleSelectNames == label"
               class="absolute left-[0] top-[44px] z-[10] max-h-[204px] w-full overflow-hidden overflow-y-auto rounded-lg border border-black bg-white"
             >
@@ -215,32 +214,32 @@ setTimeout(() => {
   </main>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 /* 將滾動條的顏色更改為紅色 */
 ::-webkit-scrollbar {
-  background-color: transparent;
-  padding: 5px;
+  background-color: transparent !important;
+  padding: 5px !important;
 }
 
 /* 將滾動條的寬度更改為 10px */
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 5px !important;
 }
 
 /* 將滾動條的高度更改為 20px */
 ::-webkit-scrollbar {
-  height: 20px;
+  height: 20px !important;
 }
 
 /* 將滾動條的按鈕顏色更改為藍色 */
 ::-webkit-scrollbar-button {
-  background-color: transparent;
-  display: none;
+  background-color: transparent !important;
+  display: none !important;
 }
 
 /* 將滾動條的滾動滑塊顏色更改為綠色 */
 ::-webkit-scrollbar-thumb {
-  background-color: #eee;
-  border-radius: 50px;
+  background-color: #eee !important;
+  border-radius: 50px !important;
 }
 </style>

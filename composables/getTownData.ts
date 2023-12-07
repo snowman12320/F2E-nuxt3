@@ -64,9 +64,22 @@ export async function getAreaVoteData(city: string) {
   const townArray: TownData[] = importedModule.default;
 
   const formattedTownArray = townArray.filter(
-    (item: TownData) => item["城市"] !== null && item["城市"] !== "",
-  );
-  // .map((item: TownData) => item["城市"].trim());
+    (item: TownData) => item["城市"] !== null && item["城市"] !== "").map((item: TownData) => {
+      item["城市"] = item["城市"].trim();
+      return item
+    });
+
+  return formattedTownArray;
+}
+export async function getTownVoteData(city: string) {
+  const importedModule = await import(`~/assets/json/2020/${city}.json`);
+  const townArray: TownData[] = importedModule.default;
+
+  const formattedTownArray = townArray.filter(
+    (item: TownData) => item["鄉鎮"] !== null && item["鄉鎮"] !== "").map((item: TownData) => {
+      item["鄉鎮"] = item["鄉鎮"].trim();
+      return item
+    });
 
   return formattedTownArray;
 }

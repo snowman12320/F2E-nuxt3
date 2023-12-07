@@ -54,6 +54,34 @@ watch(
     }
   },
 );
+
+let lastScrollPosition = 0;
+const handleClick = (e: Event) => {
+  try {
+    const target = e.target as HTMLElement;
+    console.log("Current element scroll offset X:", target.scrollLeft);
+    console.log(lastScrollPosition);
+
+    if (target.scrollLeft > lastScrollPosition) {
+      if (target.scrollLeft > 100 && target.scrollLeft < 254) {
+        lastScrollPosition = target.scrollLeft;
+        target.scrollTo({
+          left: 254,
+          // behavior: 'smooth'
+        });
+      } else if (target.scrollLeft > 374 && target.scrollLeft < 469) {
+        lastScrollPosition = target.scrollLeft;
+        target.scrollTo({
+          left: 469,
+        });
+      }
+    } else if (target.scrollLeft < 50) {
+      lastScrollPosition = 0;
+    }
+  } catch (error) {
+    console.error("Error in handleClick:", error);
+  }
+};
 </script>
 
 <template>
@@ -268,6 +296,7 @@ watch(
     <div
       v-else
       class="relative flex space-x-l overflow-x-scroll py-xxs sm:flex-col sm:space-x-[0] sm:space-y-s"
+      @scroll="handleClick"
     >
       <div
         class="h-[201px] w-[260px] flex-none rounded-lg border-2 border-[#84CB98] bg-[#EDF7F0] px-l py-s"

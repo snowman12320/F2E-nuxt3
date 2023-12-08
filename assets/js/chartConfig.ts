@@ -1,21 +1,35 @@
-export const dataS1 = {
-  labels: ['有效票', '無效票'],
-  datasets: [
-    {
-      backgroundColor: ['#262E49', '#CCCCCC'],
-      data: [400, 20]
-    }
-  ]
-}
-export const dataS2 = {
-  labels: ['有效票', '無效票'],
-  datasets: [
-    {
-      backgroundColor: ['#8894D8', '#DFA175', '#84CB98'],
-      data: [400, 80, 200]
-    }
-  ]
-}
+  let dataS1;
+  import(`~/assets/json/2020/全國投票總數.json`).then(importedAllVote => {
+    dataS1 = {
+      labels: ['有效票數', '無效票數'],
+      datasets: [
+        {
+          backgroundColor: ['#262E49', '#CCCCCC'],
+          data: [importedAllVote.default[0]['選舉人數'].replace(/,/g, ""), importedAllVote.default[0]['投票數'].replace(/,/g, "")]
+        }
+      ]
+    };
+  });
+  export { dataS1 };
+
+    let dataS2;
+    import(`~/assets/json/2020/各黨數據.json`).then(importedPartyVote => {
+      dataS2 = {
+        labels: ['親民黨', '中國國民黨','民主進步黨'],
+        datasets: [
+          {
+            backgroundColor: [ '#DFA175','#8894D8', '#84CB98'],
+            data: [
+              Number(importedPartyVote.default[0]['得票數'].replace(/,/g, "")), 
+              Number(importedPartyVote.default[2]['得票數'].replace(/,/g, "")), 
+              Number(importedPartyVote.default[4]['得票數'].replace(/,/g, ""))
+            ]
+          }
+        ]
+      };
+    });
+    export { dataS2 };
+
 
 export const optionsS1 = {
   responsive: false,

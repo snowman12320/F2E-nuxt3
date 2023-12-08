@@ -59,20 +59,21 @@ let lastScrollPosition = 0;
 const handleClick = (e: Event) => {
   try {
     const target = e.target as HTMLElement;
-    console.log("Current element scroll offset X:", target.scrollLeft);
-    console.log(lastScrollPosition);
+    // console.log("Current element scroll offset X:", target.scrollLeft);
+    // console.log(lastScrollPosition);
 
     if (target.scrollLeft > lastScrollPosition) {
-      if (target.scrollLeft > 100 && target.scrollLeft < 254) {
+      if (target.scrollLeft > 70 && target.scrollLeft < 224) {
         lastScrollPosition = target.scrollLeft;
         target.scrollTo({
-          left: 254,
+          left: 224,
           // behavior: 'smooth'
         });
       } else if (target.scrollLeft > 374 && target.scrollLeft < 469) {
         lastScrollPosition = target.scrollLeft;
         target.scrollTo({
           left: 469,
+          // behavior: 'smooth'
         });
       }
     } else if (target.scrollLeft < 50) {
@@ -86,7 +87,7 @@ const handleClick = (e: Event) => {
 
 <template>
   <main class="mt-3xl">
-    <div v-if="Object.keys(cityVote) == 0" class="space-y-l">
+    <div v-if="Object.keys(cityVote) == 0" class="h-[645px] space-y-l">
       <div class="h-[249px] w-[260px] rounded-lg border-2 bg-[#DEE0E4] p-l">
         <h6 class="flex items-center pb-xs font-semibold">
           <Icon name="ic:outline-info" width="25" class="pr-xxs" /> 小提示
@@ -299,7 +300,7 @@ const handleClick = (e: Event) => {
       @scroll="handleClick"
     >
       <div
-        class="h-[201px] w-[260px] flex-none rounded-lg border-2 border-[#84CB98] bg-[#EDF7F0] px-l py-s"
+        class="h-[201px] w-[260px] flex-none rounded-lg border-2 border-[#84CB98] bg-[#EDF7F0] px-s py-s"
         v-show="Object.keys(cityVote).length > 0"
       >
         <div class="flex flex-col justify-center space-y-s">
@@ -404,8 +405,8 @@ const handleClick = (e: Event) => {
       </div>
       <!-- 區域 -->
       <div
-        v-show="Object.keys(areaVote[0]).length > 0"
-        class="h-[201px] w-[260px] flex-none rounded-lg border-2 border-[#84CB98] bg-[#EDF7F0] px-l py-s"
+        v-if="Boolean(selectedListStore['區域'])"
+        class="h-[201px] w-[260px] flex-none rounded-lg border-2 border-[#84CB98] bg-[#EDF7F0] px-s py-s"
       >
         <div class="flex flex-col justify-center space-y-s">
           <h6 class="font-semibold">{{ selectedListStore["區域"] }}</h6>
@@ -428,7 +429,10 @@ const handleClick = (e: Event) => {
                 </p>
               </div>
               <div>
-                <p class="sm:h7 h8 font-semibold sm:font-semibold">
+                <p
+                  v-if="Object.keys(areaVote[0]).length > 0"
+                  class="sm:h7 h8 font-semibold sm:font-semibold"
+                >
                   {{
                     (
                       (areaVote[0]["蔡英文"].replace(/,/g, "") /
@@ -437,7 +441,10 @@ const handleClick = (e: Event) => {
                     ).toFixed(1)
                   }}%
                 </p>
-                <p class="h8 flex flex-none items-center justify-between">
+                <p
+                  v-if="Object.keys(areaVote[0]).length > 0"
+                  class="h8 flex flex-none items-center justify-between"
+                >
                   {{ areaVote[0]["蔡英文"] }} 票
                 </p>
               </div>
@@ -509,11 +516,16 @@ const handleClick = (e: Event) => {
       </div>
       <!-- 鄉鎮 -->
       <div
-        v-show="Object.keys(townVote[0]).length > 0"
-        class="h-[201px] w-[260px] flex-none rounded-lg border-2 border-[#84CB98] bg-[#EDF7F0] px-l py-s"
+        v-show="Boolean(selectedListStore['鄉鎮'])"
+        class="h-[201px] w-[260px] flex-none rounded-lg border-2 border-[#84CB98] bg-[#EDF7F0] px-s py-s"
       >
-        <div class="flex flex-col justify-center space-y-s">
-          <h6 class="font-semibold">{{ selectedListStore["鄉鎮"] }}</h6>
+        <div
+          class="flex flex-col justify-center space-y-s"
+          v-if="townVote && townVote[0] && '宋楚瑜' in townVote[0]"
+        >
+          <h6 class="line-clamp-1 font-semibold">
+            {{ selectedListStore["鄉鎮"] }}
+          </h6>
           <div class="h7 space-y-s font-semibold">
             <div class="flex gap-xxs sm:gap-s">
               <span
@@ -533,7 +545,10 @@ const handleClick = (e: Event) => {
                 </p>
               </div>
               <div>
-                <p class="sm:h7 h8 font-semibold sm:font-semibold">
+                <p
+                  v-if="Object.keys(townVote[0]).length > 0"
+                  class="sm:h7 h8 font-semibold sm:font-semibold"
+                >
                   {{
                     (
                       (townVote[0]["蔡英文"].replace(/,/g, "") /
@@ -542,7 +557,10 @@ const handleClick = (e: Event) => {
                     ).toFixed(1)
                   }}%
                 </p>
-                <p class="h8 flex flex-none items-center justify-between">
+                <p
+                  v-if="Object.keys(townVote[0]).length > 0"
+                  class="h8 flex flex-none items-center justify-between"
+                >
                   {{ townVote[0]["蔡英文"] }} 票
                 </p>
               </div>
@@ -639,13 +657,13 @@ html {
 /* 將滾動條的按鈕顏色更改為藍色 */
 ::-webkit-scrollbar-button {
   background-color: #eee;
-  border-radius: 10%;
+  border-radius: 5%;
   display: none;
 }
 
 /* 將滾動條的滾動滑塊顏色更改為綠色 */
 ::-webkit-scrollbar-thumb {
   background-color: #aaa;
-  border-radius: 20%;
+  border-radius: 50px;
 }
 </style>

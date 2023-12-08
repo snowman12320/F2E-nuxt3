@@ -213,3 +213,17 @@ window.addEventListener("resize", () => {
 });
 why window is not defined?
 ```
+
+
+### //// 非同步 坑 ///
+v-if="importedAllVote && '投票數/選舉人數' in importedAllVote"
+> 確定非同步引入 整包值有 才渲染
+> 一定要 XXX in XXXX 才不會有物件取不到直 就是都要客製化到最裡面的其中一個key有值才渲染
+
+
+### //// SD ///
+/**
+*  1. favicon
+*  2. leftbar
+*
+*/

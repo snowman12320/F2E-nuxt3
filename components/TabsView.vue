@@ -32,19 +32,21 @@ const areaNames = computed(() => {
 });
 const townNames = ref<Promise<string[]>>([]);
 
-const toggleSelectNames = ref("");
+const toggleSelectNames = useToggleSelectNames();
 function toggleSelect(select: string) {
   toggleSelectNames.value = select === toggleSelectNames.value ? "" : select;
+  inputSelect.value = "";
 }
 
 function selectItem(label: string, item: string) {
   selectedListStore.value[label] = item;
+  inputSelect.value = item;
   toggleSelectNames.value = "";
 }
 
 function clearSelections() {
   if (_.every(selectedListStore.value, _.isEmpty)) {
-    alert("already empty clear");
+    alert("Already clear empty.");
     return;
   }
   selectedListStore.value = {
@@ -66,10 +68,14 @@ watch(
   async (newValue, oldValue) => {
     if (Boolean(newValue) && newValue !== oldValue) {
       townNames.value = [];
+      inputSelect.value = "";
       selectedListStore.value["區域"] = areaNames.value[0].district[0];
 
       if (newValue) {
-        townNames.value = getTownData(selectedListStore.value["縣市"]);
+        townNames.value = getTownData(
+          selectedListStore.value["縣市"],
+          selectedListStore.value["區域"],
+        );
         townNames.value.then((resolvedArray) => {
           //! Now you can work with the resolvedArray,this will log the array elements (promise)
           townNames.value = resolvedArray;
@@ -80,8 +86,14 @@ watch(
   },
 );
 
+const inputSelect = ref("");
+const filterTownNames = computed(() =>
+  _.filter(townNames.value, (townName) => townName.includes(inputSelect.value)),
+);
+
 setTimeout(() => {
   selectedListStore.value["縣市"] = "南投縣";
+  isLoading.value = false;
 }, 100);
 </script>
 
@@ -95,13 +107,20 @@ setTimeout(() => {
       >
         第15任 總統副總統大選
       </h6>
-      <h6
-        class="tab-default"
-        @click="selectTab('legislative')"
-        :class="{ 'tab-click': tabName === 'legislative' }"
-      >
-        第14任 總統副總統大選
-      </h6>
+      <div class="relative">
+        <h6
+          class="tab-default"
+          @click="selectTab('legislative')"
+          :class="{ 'tab-click': tabName === 'legislative' }"
+        >
+          第14任 總統副總統大選
+        </h6>
+        <span
+          :class="{
+            ' absolute inset-[0] cursor-not-allowed ': true,
+          }"
+        ></span>
+      </div>
       <!-- <h6>{{ selectedListStore }}</h6> -->
     </div>
     <div
@@ -118,7 +137,21 @@ setTimeout(() => {
                 class="dropdown-default"
                 :class="{ '!border-[#000]': toggleSelectNames == label }"
               >
-                <h6 class="flex-none font-semibold text-inherit sm:w-[100px]">
+                <h6
+                  v-if="label == '鄉鎮'"
+                  class="flex-none font-semibold text-inherit sm:w-[100px]"
+                >
+                  <input
+                    v-model="inputSelect"
+                    type="text"
+                    class="w-[100px] border-none outline-none placeholder:text-inherit focus:placeholder:text-gray-300 sm:w-[100px]"
+                    :placeholder="selectedListStore[label] || `請選擇${label}`"
+                  />
+                </h6>
+                <h6
+                  v-else
+                  class="flex-none font-semibold text-inherit sm:w-[100px]"
+                >
                   {{ selectedListStore[label] || "請選擇" + label }}
                 </h6>
                 <Icon
@@ -147,10 +180,11 @@ setTimeout(() => {
               class="absolute left-[0] top-[44px] z-[10] max-h-[204px] w-full overflow-hidden overflow-y-auto rounded-lg border border-black bg-white"
             >
               <li
+                v-show="filterTownNames.length == 0 && Boolean(inputSelect)"
                 class="bg block w-full px-l py-xxs text-xl hover:bg-neutral-200"
                 @click="selectItem(label, '')"
               >
-                請選擇{{ label }}
+                無資料
               </li>
               <li
                 v-if="toggleSelectNames == '縣市'"
@@ -184,12 +218,12 @@ setTimeout(() => {
                 :class="{
                   'bg-neutral-200': selectedListStore[label] === item,
                 }"
-                v-for="(item, index) in townNames"
+                v-for="(item, index) in filterTownNames"
                 :key="index + 200"
                 :value="item"
                 @click="selectItem(label, item)"
               >
-                {{ item }}
+                {{ filterTownNames.length !== 0 ? item : "" }}
               </li>
             </ul>
           </div>

@@ -8,6 +8,7 @@ const afterBg = ref(); // do not use ref(null)
 const toggleDark = useToggle(isDark);
 
 let timerId = null;
+isLoading.value = true;
 
 onMounted(() => {
   setTimeout(() => {
@@ -29,10 +30,30 @@ const handleTimeClick = () => {
     afterBg.value?.classList.add("hidden");
   }, 1000);
 };
+
+const toggleSelectNames = useToggleSelectNames();
+function handleToggleSelect(e: MouseEvent) {
+  // e.target 的類型是 EventTarget，它沒有 classList 屬性。我們需要將 e.target 轉換為 Element 類型。
+  const target = e.target as Element;
+  // e.target 可能是 null，我們需要先檢查它是否存在
+  if (target) {
+    // when click outside of id = toggleSelect,then toggleSelectNames.value = false in components/TabsView.vue
+    if (
+      !target.classList.contains("dropdown-default") &&
+      !target.classList.contains("sm:w-[55px]") &&
+      !target.classList.contains("sm:w-[100px]")
+    ) {
+      toggleSelectNames.value = false;
+    }
+  }
+}
 </script>
 
 <template>
-  <div class="min-h-screen !overflow-y-hidden bg-neutral-100">
+  <div
+    class="min-h-screen !overflow-y-hidden bg-neutral-100"
+    @click="handleToggleSelect"
+  >
     <LoadingView :loading="isLoading" />
     <nav
       class="relative overflow-hidden bg-primary"

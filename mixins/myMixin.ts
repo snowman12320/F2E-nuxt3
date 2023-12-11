@@ -1,14 +1,13 @@
 export default {
   data() {
-    return {
-    };
+    return {}
   },
   created() {
-    console.log("Mixin hook called");
+    console.log('Mixin hook called')
   },
   methods: {
     mixinMethod() {
-      console.log("This is a mixin method");
-    },
-  },
-};
+      console.log('This is a mixin method')
+    }
+  }
+}

@@ -12,18 +12,23 @@
     "add api": "npx nuxi add api count",
     "add composable": "npx nuxi add composable count",
     "format": "npx prettier pages/index.vue --write",
-    "format all": "npx prettier --write ."
+    "format all": "npx prettier --write .",
+    "lint": "eslint --ext .ts,.js,.vue ."
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
+    "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@nuxtjs/eslint-module": "^4.1.0",
     "@nuxtjs/tailwindcss": "^6.9.4",
     "@pinia/nuxt": "^0.5.1",
     "@vueuse/nuxt": "^10.6.0",
     "eslint": "^8.54.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.0.1",
     "nuxt": "^3.8.0",
     "nuxt-icon": "^0.6.6",
     "nuxt-lodash": "^2.5.3",
+    "prettier": "^3.1.0",
     "sass": "^1.69.5",
     "vue": "^3.3.7",
     "vue-router": "^4.2.5",
@@ -32,7 +37,6 @@
   "dependencies": {
     "chart.js": "^4.4.0",
     "firebase": "^10.5.2",
-    "prettier": "^3.1.0",
     "prettier-plugin-tailwindcss": "^0.5.7",
     "ts-node": "^10.9.1",
     "vue-chartjs": "^5.2.0"

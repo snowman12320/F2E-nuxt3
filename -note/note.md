@@ -173,6 +173,10 @@ import _ from 'lodash';
 - 修改 要重新開啟 dev
 - sudo npm install -g ts-node
 
+- let timerId: NodeJS.Timeout | null = null;
+- 響應式寫法 let timerId = ref< NodeJS.Timeout | null >();
+
+
 
 ### //// git rebase origin/main > 拆遠端和本地的記錄黨並合併，同個記錄名稱，不能改名 > git rebase --continue > 就將兩個合併的，推上去 ///
 
@@ -227,3 +231,27 @@ v-if="importedAllVote && '投票數/選舉人數' in importedAllVote"
 *  2. leftbar
 *
 */
+
+
+### //// eslint ///
+- https://ithelp.ithome.com.tw/articles/10293758
+需重新開啟vscode
+安裝eslint / prettier套件 ,新增設定檔
+
+//帳號的 setting.json
+// 儲存自動修正 ESLint
+"editor.codeActionsOnSave": {
+  "source.fixAll.eslint": "explicit"
+},
+
+去啟動的順序
+-1. js檔 用prettier-format  ( 有單引號，去掉; ) (vue檔也需要) (但tailwindcss排版會沒有)
+-2. vue檔 用volar ( 有空格在前() )
+
+- @workspace /fix 1:30 error Delete ␍ prettier/prettier
+- 這個錯誤是由於你的程式碼中存在不必要的換行符號，這可能是因為在不同的作業系統間轉移檔案所導致的。在 Windows 系統中，換行通常由兩個字符 (\r\n) 表示，而在 Unix 或 Linux 系統中，則只由一個字符 (\n) 表示。這個錯誤訊息是 Prettier 在嘗試將你的程式碼格式化為 Unix 風格的換行符號時所產生的。
+你可以透過設定你的程式碼編輯器（例如 Visual Studio Code）來自動轉換換行符號，或者使用一些工具（例如 dos2unix）來手動轉換。以下是在 Visual Studio Code 中設定的步驟：
+打開 Visual Studio Code。
+在右下角，你會看到 "CRLF" 或 "LF" 的文字，點擊它。
+在彈出的選單中選擇 "LF"。
+這樣就可以將你的檔案中的換行符號轉換為 Unix 風格的了。如果你的專案中有多個檔案需要轉換，你可能需要使用一些工具來批次處理。

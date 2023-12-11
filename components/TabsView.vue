@@ -1,100 +1,100 @@
 <script setup lang="ts">
 interface City {
-  name: string;
-  district: string[];
+  name: string
+  district: string[]
 }
 interface SelectedListStore {
   value: {
-    縣市: string;
-    區域: string;
-    鄉鎮: string;
-  };
+    縣市: string
+    區域: string
+    鄉鎮: string
+  }
 }
 
-import _ from "lodash";
-const selectedListStore: SelectedListStore = useSelectedListStore();
-const isLoading = useLoading();
-import { getTownData } from "~/composables/getTownData";
+import _ from 'lodash'
+const selectedListStore: SelectedListStore = useSelectedListStore()
+const isLoading = useLoading()
+import { getTownData } from '~/composables/getTownData'
 
-const tabName = ref("presidential");
+const tabName = ref('presidential')
 function selectTab(tab: string) {
-  tabName.value = tab;
+  tabName.value = tab
 }
 
-const SelectCityData = await useFetch<City[]>("/api/SelectCityData");
+const SelectCityData = await useFetch<City[]>('/api/SelectCityData')
 const cityNames = computed(() => {
-  return SelectCityData?.data?._rawValue?.map((city: any) => city.name) || [];
-});
+  return SelectCityData?.data?._rawValue?.map((city: any) => city.name) || []
+})
 const areaNames = computed(() => {
   return SelectCityData?.data?._rawValue?.filter(
-    (city: any) => city.name === selectedListStore.value["縣市"],
-  );
-});
-const townNames = ref<Promise<string[]>>([]);
+    (city: any) => city.name === selectedListStore.value['縣市']
+  )
+})
+const townNames = ref<Promise<string[]>>([])
 
-const toggleSelectNames = useToggleSelectNames();
+const toggleSelectNames = useToggleSelectNames()
 function toggleSelect(select: string) {
-  toggleSelectNames.value = select === toggleSelectNames.value ? "" : select;
-  inputSelect.value = "";
+  toggleSelectNames.value = select === toggleSelectNames.value ? '' : select
+  inputSelect.value = ''
 }
 
 function selectItem(label: string, item: string) {
-  selectedListStore.value[label] = item;
-  inputSelect.value = item;
-  toggleSelectNames.value = "";
+  selectedListStore.value[label] = item
+  inputSelect.value = item
+  toggleSelectNames.value = ''
 }
 
 function clearSelections() {
   if (_.every(selectedListStore.value, _.isEmpty)) {
-    alert("Already clear empty.");
-    return;
+    alert('Already clear empty.')
+    return
   }
   selectedListStore.value = {
-    縣市: "",
-    區域: "",
-    鄉鎮: "",
-  };
-  townNames.value = [];
-  toggleSelectNames.value = "";
+    縣市: '',
+    區域: '',
+    鄉鎮: ''
+  }
+  townNames.value = []
+  toggleSelectNames.value = ''
 
-  isLoading.value = true;
+  isLoading.value = true
   setTimeout(() => {
-    isLoading.value = false;
-  }, 500);
+    isLoading.value = false
+  }, 500)
 }
 
 watch(
-  () => selectedListStore.value["縣市"],
+  () => selectedListStore.value['縣市'],
   async (newValue, oldValue) => {
     if (Boolean(newValue) && newValue !== oldValue) {
-      townNames.value = [];
-      inputSelect.value = "";
-      selectedListStore.value["區域"] = areaNames.value[0].district[0];
+      townNames.value = []
+      inputSelect.value = ''
+      selectedListStore.value['區域'] = areaNames.value[0].district[0]
 
       if (newValue) {
         townNames.value = getTownData(
-          selectedListStore.value["縣市"],
-          selectedListStore.value["區域"],
-        );
+          selectedListStore.value['縣市'],
+          selectedListStore.value['區域']
+        )
         townNames.value.then((resolvedArray) => {
           //! Now you can work with the resolvedArray,this will log the array elements (promise)
-          townNames.value = resolvedArray;
-          selectedListStore.value["鄉鎮"] = townNames.value[0];
-        });
+          townNames.value = resolvedArray
+          selectedListStore.value['鄉鎮'] = townNames.value[0]
+        })
       }
     }
-  },
-);
+  }
+)
 
-const inputSelect = ref("");
+const inputSelect = ref('')
 const filterTownNames = computed(() =>
-  _.filter(townNames.value, (townName) => townName.includes(inputSelect.value)),
-);
+  _.filter(townNames.value, (townName) => townName.includes(inputSelect.value))
+)
 
 setTimeout(() => {
-  selectedListStore.value["縣市"] = "南投縣";
-  isLoading.value = false;
-}, 100);
+  selectedListStore.value['縣市'] = '南投縣'
+  isLoading.value = false
+}, 100)
 </script>
 
 <template>
@@ -117,7 +117,7 @@ setTimeout(() => {
         </h6>
         <span
           :class="{
-            ' absolute inset-[0] cursor-not-allowed ': true,
+            ' absolute inset-[0] cursor-not-allowed ': true
           }"
         ></span>
       </div>
@@ -135,7 +135,9 @@ setTimeout(() => {
               <div
                 @click="toggleSelect(label)"
                 class="dropdown-default"
-                :class="{ '!border-[#000]': toggleSelectNames == label }"
+                :class="{
+                  '!border-[#000]': toggleSelectNames.toString() === label
+                }"
               >
                 <h6
                   v-if="label == '鄉鎮'"
@@ -152,31 +154,31 @@ setTimeout(() => {
                   v-else
                   class="flex-none font-semibold text-inherit sm:w-[100px]"
                 >
-                  {{ selectedListStore[label] || "請選擇" + label }}
+                  {{ selectedListStore[label] || '請選擇' + label }}
                 </h6>
                 <Icon
                   name="fa-solid:chevron-down"
                   width="55"
-                  :verticalFlip="toggleSelectNames == label"
+                  :verticalFlip="toggleSelectNames.toString() === label"
                   class="w-[24px] sm:w-[55px]"
                 />
               </div>
               <span
                 :class="{
                   ' absolute inset-[0] cursor-not-allowed bg-white/70':
-                    label == '區域' && !areaNames[0],
+                    label == '區域' && !areaNames[0]
                 }"
               ></span>
               <span
                 :class="{
                   ' absolute inset-[0] cursor-not-allowed bg-white/70':
-                    label == '鄉鎮' && townNames.length == 0,
+                    label == '鄉鎮' && townNames.length == 0
                 }"
               ></span>
             </div>
             <ul
               id="scrollbar"
-              v-show="toggleSelectNames == label"
+              v-show="toggleSelectNames.toString() === label"
               class="absolute left-[0] top-[44px] z-[10] max-h-[204px] w-full overflow-hidden overflow-y-auto rounded-lg border border-black bg-white"
             >
               <li
@@ -190,7 +192,7 @@ setTimeout(() => {
                 v-if="toggleSelectNames == '縣市'"
                 class="block w-full cursor-pointer px-l py-xxs text-xl font-semibold hover:bg-neutral-200"
                 :class="{
-                  'bg-neutral-200': selectedListStore[label] === item,
+                  'bg-neutral-200': selectedListStore[label] === item
                 }"
                 v-for="(item, index) in cityNames"
                 :key="index"
@@ -203,7 +205,7 @@ setTimeout(() => {
                 v-else-if="areaNames[0] && toggleSelectNames == '區域'"
                 class="block w-full cursor-pointer px-l py-xxs text-xl font-semibold hover:bg-neutral-200"
                 :class="{
-                  'bg-neutral-200': selectedListStore[label] === item,
+                  'bg-neutral-200': selectedListStore[label] === item
                 }"
                 v-for="(item, index) in areaNames[0].district"
                 :key="index + 100"
@@ -216,14 +218,14 @@ setTimeout(() => {
                 v-else-if="toggleSelectNames == '鄉鎮' && townNames"
                 class="block w-full cursor-pointer px-l py-xxs text-xl font-semibold hover:bg-neutral-200"
                 :class="{
-                  'bg-neutral-200': selectedListStore[label] === item,
+                  'bg-neutral-200': selectedListStore[label] === item
                 }"
                 v-for="(item, index) in filterTownNames"
                 :key="index + 200"
                 :value="item"
                 @click="selectItem(label, item)"
               >
-                {{ filterTownNames.length !== 0 ? item : "" }}
+                {{ filterTownNames.length !== 0 ? item : '' }}
               </li>
             </ul>
           </div>

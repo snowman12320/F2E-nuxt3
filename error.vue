@@ -1,13 +1,13 @@
 <script setup lang="ts">
 const props = defineProps({
-  error: Object,
-});
+  error: Object
+})
 
-const handleError = () => clearError({ redirect: "/" });
+const handleError = () => clearError({ redirect: '/' })
 </script>
 
 <template>
-  <div class="text-center space-y-[100px] p-5xl">
+  <div class="space-y-[100px] p-5xl text-center">
     <h3>{{ error.statusCode }}</h3>
     <h4>{{ error.statusMessage }}</h4>
     <!-- <h5>{{ error.message }}</h5> -->

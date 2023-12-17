@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-const selectedListStore = useSelectedListStore()
-import { getCityVoteData } from '~/composables/getTownData'
+const isLoading = useLoading();
+const selectedListStore = useSelectedListStore();
+import { getCityVoteData } from "~/composables/getTownData";
 // import { get as _get, trim as _trim, isEqual as _isEqual } from 'lodash';
 import _ from 'lodash'
 
@@ -299,7 +300,14 @@ const handleClick = (e: Event) => {
                 </p>
               </div>
               <div>
-                <p v-if="Object.keys(areaVote[0]).length > 0" class="sm:h7 h8 font-semibold sm:font-semibold">
+                <p
+                  v-if="
+                    areaVote &&
+                    Object.keys(areaVote[0]) &&
+                    '蔡英文' in areaVote[0]
+                  "
+                  class="sm:h7 h8 font-semibold sm:font-semibold"
+                >
                   {{
                     (
                       (areaVote[0]['蔡英文'].replace(/,/g, '') /

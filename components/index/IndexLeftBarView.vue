@@ -50,12 +50,12 @@ import(`~/assets/json/2020/各黨數據.json`).then((res) => {
         percentage: data['得票率'],
         votes: data['得票數'],
         color:
-          data['推薦政黨'] === '民主進步黨'
-            ? 'bg-green-500'
-            : data['推薦政黨'] === '中國國民黨'
-              ? 'bg-blue-500'
-              : 'bg-red-500'
-      })
+          data["推薦政黨"] === "民主進步黨"
+            ? "bg-[#84CB98]"
+            : data["推薦政黨"] === "中國國民黨"
+              ? "bg-[#8894D8]"
+              : "bg-[#DFA175]",
+      });
     }
     return acc
   }, [])

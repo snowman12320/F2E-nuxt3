@@ -78,6 +78,8 @@ https://www.youtube.com/watch?v=q1oVtkqv8Ww
 - 引用全域
   const counter = useCounter();
 
+- 清除暫存，右側資料區，就不會抱錯
+
 ### // plugin
 
 - vue Snippets for vue/nuxt projects
@@ -255,3 +257,42 @@ v-if="importedAllVote && '投票數/選舉人數' in importedAllVote"
 在右下角，你會看到 "CRLF" 或 "LF" 的文字，點擊它。
 在彈出的選單中選擇 "LF"。
 這樣就可以將你的檔案中的換行符號轉換為 Unix 風格的了。如果你的專案中有多個檔案需要轉換，你可能需要使用一些工具來批次處理。
+<!--  -->
+// Problem 1 & 11: 確保您的專案中存在該模組，並且路徑正確
+import { getTownData } from "@/composables/getTownData";
+
+// Problem 2, 4, 5, 15, 16, 18: toggleSelectNames 應該是一個 string，而不是 boolean
+const toggleSelectNames = ref<string>("");
+
+// Problem 6 & 14: townNames 應該是一個 string[]，而不是 Promise<string[]>
+const townNames = ref<string[]>([]);
+
+// Problem 7, 8, 12, 13: 您應該直接存取 data 屬性，而不是 _rawValue
+const SelectCityData = ref<City[]>([]);
+const cityNames = computed(() => SelectCityData.value?.map((city: City) => city.name) || []);
+
+// Problem 9, 10: 確保 useSelectedListStore 回傳的是正確的類型
+interface SelectedListStore {
+  value: {
+    縣市: string;
+    區域: string;
+    鄉鎮: string;
+  };
+}
+const selectedListStore: SelectedListStore = useSelectedListStore();
+
+// Problem 17: 您應該使用具體的鍵來索引 selectedListStore.value
+function selectItem(label: "縣市" | "區域" | "鄉鎮", item: string) {
+  selectedListStore.value[label] = item;
+}
+
+// Problem 19, 20, 21, 22: 如果這些函數和變數沒有被使用，您可以選擇刪除它們，或者確保它們在其他地方被正確使用
+function selectTab(tab: string) {
+  // your code here
+}
+
+function toggleSelect(select: string) {
+  toggleSelectNames.value = select === toggleSelectNames.value ? "" : select;
+  inputSelectFocus.value.focus();
+  inputSelect.value = "";
+}

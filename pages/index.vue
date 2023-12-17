@@ -50,10 +50,31 @@ function handleToggleSelect (e: MouseEvent) {
 </script>
 
 <template>
-  <div class="min-h-screen !overflow-y-hidden bg-neutral-100" @click="handleToggleSelect">
-    <LoadingView :loading="isLoading" />
-    <nav class="relative overflow-hidden bg-primary" :class="{ '!bg-black !transition-all !duration-[1000ms]': isDark }">
-      <h4 class="py-m pl-4xl font-semibold text-white" @click="handleTimeClick()">
+  <div
+    class="min-h-screen !overflow-y-hidden bg-neutral-100"
+    @click="handleToggleSelect"
+  >
+    <ClientOnly>
+      <!-- 伺服器端預設渲染內容 -->
+      <template #fallback>
+        <BaseLoadingView :loading="isLoading" />
+        <p
+          class="fixed left-1/2 top-[60%] z-[99] -translate-x-1/2 -translate-y-1/2 text-center"
+        >
+          資料載入中 . . .
+        </p>
+      </template>
+      <!-- 客戶端接手渲染內容 -->
+      <BaseLoadingView :loading="isLoading" />
+    </ClientOnly>
+    <nav
+      class="relative overflow-hidden bg-primary"
+      :class="{ '!bg-black !transition-all !duration-[1000ms]': isDark }"
+    >
+      <h4
+        class="py-m pl-4xl font-semibold text-white"
+        @click="handleTimeClick()"
+      >
         2020 開票地圖
       </h4>
       <span ref="afterBg" :class="{
@@ -63,11 +84,16 @@ function handleToggleSelect (e: MouseEvent) {
         class="w-full after:absolute after:left-1/2 after:top-1/2 after:h-[50px] after:w-[50px] after:-translate-y-1/2 after:scale-[0] after:rounded-full after:bg-black after:!transition-all after:!duration-[1500ms]" />
     </nav>
     <main class="px-l py-xl sm:px-4xl">
-      <TabsView />
+      <IndexTabsGroup />
       <section class="z-[1] flex flex-col justify-between sm:flex-row">
-        <LeftBarView />
-        <TaiwanBarView />
-        <RightBarView />
+        <!-- 客戶端在渲染可避免右側渲染錯誤 -->
+        <ClientOnly>
+          <IndexLeftBarView />
+          <IndexTaiwanBarView />
+          <IndexRightBarView />
+        </ClientOnly>
+        <!-- 清空時，畫面會抖動 -->
+        <!-- <LazyIndexRightBarView v-if="!isLoading" /> -->
       </section>
     </main>
   </div>

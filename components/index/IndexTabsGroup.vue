@@ -34,8 +34,11 @@ const townNames = ref<Promise<string[]>>([])
 
 const toggleSelectNames = useToggleSelectNames()
 function toggleSelect(select: string) {
-  toggleSelectNames.value = select === toggleSelectNames.value ? '' : select
-  inputSelect.value = ''
+  toggleSelectNames.value = select === toggleSelectNames.value ? "" : select;
+  inputSelect.value = "";
+  // const inputSelectFocus = ref();
+  // Uncaught TypeError: inputSelectFocus.value.focus is not a function,how to fix
+  // inputSelectFocus.value.focus();
 }
 
 function selectItem(label: string, item: string) {
@@ -91,10 +94,11 @@ const filterTownNames = computed(() =>
   _.filter(townNames.value, (townName) => townName.includes(inputSelect.value))
 )
 
-setTimeout(() => {
-  selectedListStore.value['縣市'] = '南投縣'
-  isLoading.value = false
-}, 100)
+setTimeout(async () => {
+  selectedListStore.value["縣市"] = await "南投縣";
+  // 關閉首屏時的載入動畫，配合 LazyIndexRightBarView，但要100ms，才能避免，後來渲染報錯
+  isLoading.value = false;
+}, 100);
 </script>
 
 <template>
@@ -148,6 +152,7 @@ setTimeout(() => {
                     type="text"
                     class="w-[100px] border-none outline-none placeholder:text-inherit focus:placeholder:text-gray-300 sm:w-[100px]"
                     :placeholder="selectedListStore[label] || `請選擇${label}`"
+                    ref="inputSelectFocus"
                   />
                 </h6>
                 <h6
@@ -159,8 +164,8 @@ setTimeout(() => {
                 <Icon
                   name="fa-solid:chevron-down"
                   width="55"
-                  :verticalFlip="toggleSelectNames.toString() === label"
-                  class="w-[24px] sm:w-[55px]"
+                  :verticalFlip="toggleSelectNames == label"
+                  class="!pointer-events-none w-[24px] sm:w-[55px]"
                 />
               </div>
               <span

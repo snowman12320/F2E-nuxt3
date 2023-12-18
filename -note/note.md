@@ -297,8 +297,12 @@ function toggleSelect(select: string) {
   inputSelect.value = "";
 }
 
+
+### //// test git ///
 remote commit
 
 local test use add not commit ,then pull remote commit ,is it confilc or need rebase?
 
 <!-- test remote -->
+<!-- test 2 -->
+local

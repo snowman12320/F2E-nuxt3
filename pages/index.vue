@@ -7,8 +7,8 @@ const isDark = useDark()
 const afterBg = ref() // do not use ref(null)
 const toggleDark = useToggle(isDark)
 
-let timerId: NodeJS.Timeout | null = null
-isLoading.value = true
+let timerId: number | null | NodeJS.Timeout = null;
+isLoading.value = true;
 
 onMounted(() => {
   setTimeout(() => {

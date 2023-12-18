@@ -306,3 +306,5 @@ local test use add not commit ,then pull remote commit ,is it confilc or need re
 <!-- test remote -->
 <!-- test 2 -->
 local
+
+<!-- test remote commit merge to main -->

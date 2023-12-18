@@ -308,3 +308,8 @@ local test use add not commit ,then pull remote commit ,is it confilc or need re
 local
 
 <!-- test remote commit merge to main -->
+<!-- test main branch agree remote merge in -->
+error: Your local changes to the following files would be overwritten by merge:
+        -note/note.md
+Please commit your changes or stash them before you merge.
+Aborting

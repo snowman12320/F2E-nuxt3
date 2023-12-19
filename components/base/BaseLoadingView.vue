@@ -1,12 +1,13 @@
 <script lang="ts" setup>
-const props = defineProps<{
-  loading: boolean
-}>()
+import { defineProps } from 'vue';
+defineProps<{
+  loading: boolean;
+}>();
 </script>
 
 <template>
   <div
-    v-if="props.loading"
+    v-if="loading"
     class="inset-0 absolute z-[99] flex h-screen w-full items-center justify-center bg-white bg-opacity-[.3] backdrop-blur-sm"
   >
     <Icon

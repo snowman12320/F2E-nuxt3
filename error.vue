@@ -4,6 +4,8 @@ const props = defineProps({
 })
 
 const handleError = () => clearError({ redirect: '/' })
+
+// setResponseStatus(404)
 </script>
 
 <template>

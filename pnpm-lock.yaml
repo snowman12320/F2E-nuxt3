@@ -70,6 +70,9 @@ devDependencies:
   vue-router:
     specifier: ^4.2.5
     version: 4.2.5(vue@3.3.7)
+  vue-scrollto:
+    specifier: ^2.20.0
+    version: 2.20.0
   vue-tsc:
     specifier: ^1.8.25
     version: 1.8.25(typescript@5.3.2)
@@ -4031,6 +4034,10 @@ packages:
 
   /balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
+    dev: true
+
+  /bezier-easing@2.1.0:
+    resolution: {integrity: sha512-gbIqZ/eslnUFC1tjEvtz0sgx+xTK20wDnYMIA27VA04R7w6xxXQPZDbibjA9DTWZRA2CXtwHykkVzlCaAJAZig==}
     dev: true
 
   /big-integer@1.6.51:
@@ -10686,6 +10693,12 @@ packages:
     dependencies:
       '@vue/devtools-api': 6.5.1
       vue: 3.3.7(typescript@5.3.2)
+    dev: true
+
+  /vue-scrollto@2.20.0:
+    resolution: {integrity: sha512-7i+AGKJTThZnMEkhIPgrZjyAX+fXV7/rGdg+CV283uZZwCxwiMXaBLTmIc5RTA4uwGnT+E6eJle3mXQfM2OD3A==}
+    dependencies:
+      bezier-easing: 2.1.0
     dev: true
 
   /vue-template-compiler@2.7.15:

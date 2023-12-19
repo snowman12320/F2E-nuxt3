@@ -1,4 +1,5 @@
 export const useLoading = () => useState<boolean>('isLoading', () => false)
+
 export const useToggleSelectNames = () =>
   useState<boolean>('toggleSelectNames', () => '')
 

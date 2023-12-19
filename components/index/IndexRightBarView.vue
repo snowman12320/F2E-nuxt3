@@ -1,89 +1,89 @@
 <script lang="ts" setup>
-const isLoading = useLoading()
-const selectedListStore = useSelectedListStore()
-import { getCityVoteData } from '~/composables/getTownData'
+const isLoading = useLoading();
+const selectedListStore = useSelectedListStore();
+import { getCityVoteData } from "~/composables/useGetTownData";
 // import { get as _get, trim as _trim, isEqual as _isEqual } from 'lodash';
-import _ from 'lodash'
+import _ from "lodash";
 
-const cityVote = ref({})
-const areaVote = ref({})
-const townVote = ref({})
+const cityVote = ref({});
+const areaVote = ref({});
+const townVote = ref({});
 
 watch(
-  () => selectedListStore.value['縣市'],
+  () => selectedListStore.value["縣市"],
   (newValue) => {
-    cityVote.value = {}
+    cityVote.value = {};
     if (newValue) {
-      getCityVoteData(selectedListStore.value['縣市']).then((result: any) => {
-        cityVote.value = result[0]
+      getCityVoteData(selectedListStore.value["縣市"]).then((result: any) => {
+        cityVote.value = result[0];
         // console.log(cityVote.value);
-      })
+      });
     }
-  }
-)
+  },
+);
 
 watch(
-  () => selectedListStore.value['區域'],
+  () => selectedListStore.value["區域"],
   async (newValue) => {
     if (newValue) {
-      getAreaVoteData(selectedListStore.value['縣市']).then((result) => {
-        areaVote.value = {}
+      getAreaVoteData(selectedListStore.value["縣市"]).then((result) => {
+        areaVote.value = {};
         areaVote.value = result.map((item) => {
-          item['城市'] = _.trim(item['城市'])
-          return item
-        })
+          item["城市"] = _.trim(item["城市"]);
+          return item;
+        });
         areaVote.value = areaVote.value.filter((item) =>
-          _.isEqual(item['城市'], newValue)
-        )
+          _.isEqual(item["城市"], newValue),
+        );
         // console.log(areaVote.value[0]);
-      })
+      });
     }
-  }
-)
+  },
+);
 
 watch(
-  () => selectedListStore.value['鄉鎮'],
+  () => selectedListStore.value["鄉鎮"],
   (newValue) => {
     if (newValue) {
-      getTownVoteData(selectedListStore.value['縣市']).then((result) => {
-        townVote.value = {}
+      getTownVoteData(selectedListStore.value["縣市"]).then((result) => {
+        townVote.value = {};
         townVote.value = result.filter((item) =>
-          _.isEqual(item['鄉鎮'], newValue)
-        )
+          _.isEqual(item["鄉鎮"], newValue),
+        );
         // console.log(townVote.value[0]);
-      })
+      });
     }
-  }
-)
+  },
+);
 
-let lastScrollPosition = 0
+let lastScrollPosition = 0;
 const handleClick = (e: Event) => {
   try {
-    const target = e.target as HTMLElement
+    const target = e.target as HTMLElement;
     // console.log("Current element scroll offset X:", target.scrollLeft);
     // console.log(lastScrollPosition);
 
     if (target.scrollLeft > lastScrollPosition) {
       if (target.scrollLeft > 70 && target.scrollLeft < 224) {
-        lastScrollPosition = target.scrollLeft
+        lastScrollPosition = target.scrollLeft;
         target.scrollTo({
-          left: 224
+          left: 224,
           // behavior: 'smooth'
-        })
+        });
       } else if (target.scrollLeft > 374 && target.scrollLeft < 469) {
-        lastScrollPosition = target.scrollLeft
+        lastScrollPosition = target.scrollLeft;
         target.scrollTo({
-          left: 469
+          left: 469,
           // behavior: 'smooth'
-        })
+        });
       }
     } else if (target.scrollLeft < 50) {
-      lastScrollPosition = 0
+      lastScrollPosition = 0;
     }
   } catch (error) {
-    console.error('Error in handleClick:', error)
+    console.error("Error in handleClick:", error);
   }
-}
+};
 </script>
 
 <template>
@@ -305,7 +305,7 @@ const handleClick = (e: Event) => {
         v-show="Object.keys(cityVote).length > 0"
       >
         <div class="flex flex-col justify-center space-y-s">
-          <h6 class="font-semibold">{{ selectedListStore['縣市'] }}</h6>
+          <h6 class="font-semibold">{{ selectedListStore["縣市"] }}</h6>
           <div class="h7 space-y-s font-semibold">
             <div class="flex gap-xxs sm:gap-s">
               <span
@@ -328,14 +328,14 @@ const handleClick = (e: Event) => {
                 <p class="sm:h7 h8 font-semibold sm:font-semibold">
                   {{
                     (
-                      (cityVote['蔡英文'].replace(/,/g, '') /
-                        cityVote['有效票數'].replace(/,/g, '')) *
+                      (cityVote["蔡英文"].replace(/,/g, "") /
+                        cityVote["有效票數"].replace(/,/g, "")) *
                       100
                     ).toFixed(1)
                   }}%
                 </p>
                 <p class="h8 flex flex-none items-center justify-between">
-                  {{ cityVote['蔡英文'] }} 票
+                  {{ cityVote["蔡英文"] }} 票
                 </p>
               </div>
             </div>
@@ -360,14 +360,14 @@ const handleClick = (e: Event) => {
                 <p class="h7 font-semibold">
                   {{
                     (
-                      (cityVote['韓國瑜'].replace(/,/g, '') /
-                        cityVote['有效票數'].replace(/,/g, '')) *
+                      (cityVote["韓國瑜"].replace(/,/g, "") /
+                        cityVote["有效票數"].replace(/,/g, "")) *
                       100
                     ).toFixed(1)
                   }}%
                 </p>
                 <p class="h8 flex flex-none items-center justify-between">
-                  {{ cityVote['韓國瑜'] }} 票
+                  {{ cityVote["韓國瑜"] }} 票
                 </p>
               </div>
             </div>
@@ -390,14 +390,14 @@ const handleClick = (e: Event) => {
                 <p class="h7 font-semibold">
                   {{
                     (
-                      (cityVote['宋楚瑜'].replace(/,/g, '') /
-                        cityVote['有效票數'].replace(/,/g, '')) *
+                      (cityVote["宋楚瑜"].replace(/,/g, "") /
+                        cityVote["有效票數"].replace(/,/g, "")) *
                       100
                     ).toFixed(1)
                   }}%
                 </p>
                 <p class="h8 flex flex-none items-center justify-between">
-                  {{ cityVote['宋楚瑜'] }} 票
+                  {{ cityVote["宋楚瑜"] }} 票
                 </p>
               </div>
             </div>
@@ -410,7 +410,7 @@ const handleClick = (e: Event) => {
         class="h-[201px] w-[260px] flex-none rounded-lg border-2 border-[#84CB98] bg-[#EDF7F0] px-s py-s"
       >
         <div class="flex flex-col justify-center space-y-s">
-          <h6 class="font-semibold">{{ selectedListStore['區域'] }}</h6>
+          <h6 class="font-semibold">{{ selectedListStore["區域"] }}</h6>
           <div class="h7 space-y-s font-semibold">
             <div class="flex gap-xxs sm:gap-s">
               <span
@@ -440,8 +440,8 @@ const handleClick = (e: Event) => {
                 >
                   {{
                     (
-                      (areaVote[0]['蔡英文'].replace(/,/g, '') /
-                        areaVote[0]['有效票數'].replace(/,/g, '')) *
+                      (areaVote[0]["蔡英文"].replace(/,/g, "") /
+                        areaVote[0]["有效票數"].replace(/,/g, "")) *
                       100
                     ).toFixed(1)
                   }}%
@@ -450,7 +450,7 @@ const handleClick = (e: Event) => {
                   v-if="Object.keys(areaVote[0]).length > 0"
                   class="h8 flex flex-none items-center justify-between"
                 >
-                  {{ areaVote[0]['蔡英文'] }} 票
+                  {{ areaVote[0]["蔡英文"] }} 票
                 </p>
               </div>
             </div>
@@ -475,14 +475,14 @@ const handleClick = (e: Event) => {
                 <p class="h7 font-semibold">
                   {{
                     (
-                      (areaVote[0]['韓國瑜'].replace(/,/g, '') /
-                        areaVote[0]['有效票數'].replace(/,/g, '')) *
+                      (areaVote[0]["韓國瑜"].replace(/,/g, "") /
+                        areaVote[0]["有效票數"].replace(/,/g, "")) *
                       100
                     ).toFixed(1)
                   }}%
                 </p>
                 <p class="h8 flex flex-none items-center justify-between">
-                  {{ areaVote[0]['韓國瑜'] }} 票
+                  {{ areaVote[0]["韓國瑜"] }} 票
                 </p>
               </div>
             </div>
@@ -505,14 +505,14 @@ const handleClick = (e: Event) => {
                 <p class="h7 font-semibold">
                   {{
                     (
-                      (areaVote[0]['宋楚瑜'].replace(/,/g, '') /
-                        areaVote[0]['有效票數'].replace(/,/g, '')) *
+                      (areaVote[0]["宋楚瑜"].replace(/,/g, "") /
+                        areaVote[0]["有效票數"].replace(/,/g, "")) *
                       100
                     ).toFixed(1)
                   }}%
                 </p>
                 <p class="h8 flex flex-none items-center justify-between">
-                  {{ areaVote[0]['宋楚瑜'] }} 票
+                  {{ areaVote[0]["宋楚瑜"] }} 票
                 </p>
               </div>
             </div>
@@ -529,7 +529,7 @@ const handleClick = (e: Event) => {
           v-if="townVote && townVote[0] && '宋楚瑜' in townVote[0]"
         >
           <h6 class="line-clamp-1 font-semibold">
-            {{ selectedListStore['鄉鎮'] }}
+            {{ selectedListStore["鄉鎮"] }}
           </h6>
           <div class="h7 space-y-s font-semibold">
             <div class="flex gap-xxs sm:gap-s">
@@ -556,8 +556,8 @@ const handleClick = (e: Event) => {
                 >
                   {{
                     (
-                      (townVote[0]['蔡英文'].replace(/,/g, '') /
-                        townVote[0]['有效票數'].replace(/,/g, '')) *
+                      (townVote[0]["蔡英文"].replace(/,/g, "") /
+                        townVote[0]["有效票數"].replace(/,/g, "")) *
                       100
                     ).toFixed(1)
                   }}%
@@ -566,7 +566,7 @@ const handleClick = (e: Event) => {
                   v-if="Object.keys(townVote[0]).length > 0"
                   class="h8 flex flex-none items-center justify-between"
                 >
-                  {{ townVote[0]['蔡英文'] }} 票
+                  {{ townVote[0]["蔡英文"] }} 票
                 </p>
               </div>
             </div>
@@ -591,14 +591,14 @@ const handleClick = (e: Event) => {
                 <p class="h7 font-semibold">
                   {{
                     (
-                      (townVote[0]['韓國瑜'].replace(/,/g, '') /
-                        townVote[0]['有效票數'].replace(/,/g, '')) *
+                      (townVote[0]["韓國瑜"].replace(/,/g, "") /
+                        townVote[0]["有效票數"].replace(/,/g, "")) *
                       100
                     ).toFixed(1)
                   }}%
                 </p>
                 <p class="h8 flex flex-none items-center justify-between">
-                  {{ townVote[0]['韓國瑜'] }} 票
+                  {{ townVote[0]["韓國瑜"] }} 票
                 </p>
               </div>
             </div>
@@ -621,14 +621,14 @@ const handleClick = (e: Event) => {
                 <p class="h7 font-semibold">
                   {{
                     (
-                      (townVote[0]['宋楚瑜'].replace(/,/g, '') /
-                        townVote[0]['有效票數'].replace(/,/g, '')) *
+                      (townVote[0]["宋楚瑜"].replace(/,/g, "") /
+                        townVote[0]["有效票數"].replace(/,/g, "")) *
                       100
                     ).toFixed(1)
                   }}%
                 </p>
                 <p class="h8 flex flex-none items-center justify-between">
-                  {{ townVote[0]['宋楚瑜'] }} 票
+                  {{ townVote[0]["宋楚瑜"] }} 票
                 </p>
               </div>
             </div>

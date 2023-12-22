@@ -313,3 +313,5 @@ error: Your local changes to the following files would be overwritten by merge:
         -note/note.md
 Please commit your changes or stash them before you merge.
 Aborting
+
+<!-- test windows conflict in local -->

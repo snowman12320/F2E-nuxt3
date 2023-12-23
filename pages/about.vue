@@ -11,13 +11,14 @@
 
 <script setup lang="ts">
 definePageMeta({
-  layout: "custom",
+  layout: 'custom',
   // layout: false,
-});
+  middleware: ['random-redirect']
+})
 
-const route = useRoute();
+const route = useRoute()
 
-const { x, y } = useMouse();
+const { x, y } = useMouse()
 
-const counter = useCounter();
+const counter = useCounter()
 </script>

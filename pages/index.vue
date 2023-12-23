@@ -2,51 +2,67 @@
 // USEVUE 調整true false植 會有問題
 // const [loading, toggleLoading] = useToggle();
 
-const isLoading = useLoading();
-const isDark = useDark();
-const afterBg = ref(); // do not use ref(null)
-const toggleDark = useToggle(isDark);
+const isLoading = useLoading()
+const isDark = useDark()
+const afterBg = ref() // do not use ref(null)
+const toggleDark = useToggle(isDark)
 
-let timerId: number | null | NodeJS.Timeout = null;
-isLoading.value = true;
+let timerId: number | null | NodeJS.Timeout = null
+isLoading.value = true
 
 onMounted(() => {
   setTimeout(() => {
     if (isDark) {
       // afterBg.value.classList.add("hidden");
     }
-  }, 1000);
-});
+  }, 1000)
+})
 onUnmounted(() => {
   if (timerId) {
-    clearTimeout(timerId);
+    clearTimeout(timerId)
   }
-});
+})
 
 const handleTimeClick = () => {
-  toggleDark();
-  afterBg.value?.classList.remove("hidden");
+  toggleDark()
+  afterBg.value?.classList.remove('hidden')
   timerId = setTimeout(() => {
-    afterBg.value?.classList.add("hidden");
-  }, 1000);
-};
+    afterBg.value?.classList.add('hidden')
+  }, 1000)
+}
 
-const toggleSelectNames = useToggleSelectNames();
+const toggleSelectNames = useToggleSelectNames()
 function handleToggleSelect(e: MouseEvent) {
   // e.target 的類型是 EventTarget，它沒有 classList 屬性。我們需要將 e.target 轉換為 Element 類型。
-  const target = e.target as Element;
+  const target = e.target as Element
   // e.target 可能是 null，我們需要先檢查它是否存在
   if (target) {
     // when click outside of id = toggleSelect,then toggleSelectNames.value = false in components/TabsView.vue
     if (
-      !target.classList.contains("dropdown-default") &&
-      !target.classList.contains("sm:w-[55px]") &&
-      !target.classList.contains("sm:w-[100px]")
+      !target.classList.contains('dropdown-default') &&
+      !target.classList.contains('sm:w-[55px]') &&
+      !target.classList.contains('sm:w-[100px]')
     ) {
-      toggleSelectNames.value = false;
+      toggleSelectNames.value = false
     }
   }
 }
+
+definePageMeta({
+  middleware: defineNuxtRouteMiddleware(() => {
+    // console.log(`[匿名中間件] 我是直接定義在 index.vue 頁面內的匿名中間件`)
+  })
+})
+
+const dataTest = await $fetch('/api/firebase')
+console.log(dataTest)
+
+// const { data } = await useAsyncData('firebase', () => $fetch('/api/firebase'))
+// console.log(data);
+
+// const { data, pending, refresh, error, status } =
+//   await useFetch('/api/firebase')
+// console.log(data, pending, refresh, error, status)
 </script>
 
 <template>
@@ -82,7 +98,7 @@ function handleToggleSelect(e: MouseEvent) {
         ref="afterBg"
         :class="{
           'after:!scale-[100] after:!transition-all after:!duration-[1500ms]':
-            isDark,
+            isDark
         }"
         class="w-full after:absolute after:left-1/2 after:top-1/2 after:h-[50px] after:w-[50px] after:-translate-y-1/2 after:scale-[0] after:rounded-full after:bg-black after:!transition-all after:!duration-[1500ms]"
       />

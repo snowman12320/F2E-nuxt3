@@ -23,6 +23,7 @@ export default defineNuxtConfig({
     dirs: ['composables/**']
   },
   nitro: {
+    preset: 'firebase',
     firebase: {
       gen: 2
     }

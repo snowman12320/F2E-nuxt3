@@ -1,16 +1,19 @@
 {
+  "functions": {
+    "source": ".output/server",
+    "runtime": "nodejs18"
+  },
   "hosting": {
-    "public": "public",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
+    "site": "my-first-project-1110913",
+    "public": ".output/public",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "cleanUrls": true,
     "rewrites": [
       {
         "source": "**",
-        "destination": "/index.html"
+        "function": "server"
       }
-    ]
+    ],
+    "predeploy": ["cd .output/server && rm -rf node_modules && pnpm install"]
   }
 }

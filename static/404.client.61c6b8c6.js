@@ -1,0 +1,1 @@
+import{d as t,o as a,c as n,b as r,t as s,e as c}from"./entry.c44ea944.js";const d=t({__name:"404.client",props:{error:{}},setup(l){const e=()=>c({redirect:"/"});return(o,p)=>(a(),n("div",null,[r("h2",null,s(o.error.statusCode),1),r("button",{onClick:e},"Clear errors")]))}});export{d as default};

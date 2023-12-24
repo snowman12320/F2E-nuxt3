@@ -1,0 +1,1 @@
+import{d as s,u as a,o as n,c as o,b as e,t as r,g as l}from"./entry.c44ea944.js";const u=e("hr",null,null,-1),d=s({__name:"[id]",setup(c){const t=a();return(_,i)=>(n(),o("div",null,[e("h1",null,"商品一览("+r(l(t).params.id)+")",1),u]))}});export{d as default};

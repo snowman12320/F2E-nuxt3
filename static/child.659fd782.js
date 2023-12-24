@@ -1,0 +1,1 @@
+import{_ as e}from"./_plugin-vue_export-helper.c27b6911.js";import{c as o,o as t,b as s}from"./entry.c44ea944.js";const c={},n=s("p",null,"子路由",-1),r=[n];function a(_,p,d,i,l,f){return t(),o("div",null,r)}const h=e(c,[["render",a]]);export{h as default};

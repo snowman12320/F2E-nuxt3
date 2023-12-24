@@ -95,7 +95,7 @@ const filterTownNames = computed(() =>
 );
 
 setTimeout(async () => {
-  selectedListStore.value["縣市"] = await "南投縣";
+  // selectedListStore.value["縣市"] = await "南投縣";
   // 關閉首屏時的載入動畫，配合 LazyIndexRightBarView，但要100ms，才能避免，後來渲染報錯
   isLoading.value = false;
 }, 100);

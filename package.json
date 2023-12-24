@@ -13,7 +13,8 @@
     "add composable": "npx nuxi add composable count",
     "format": "npx prettier pages/index.vue --write",
     "format all": "npx prettier --write .",
-    "lint": "eslint --ext .ts,.js,.vue ."
+    "lint": "eslint --ext .ts,.js,.vue .",
+    "deploy": "gh-pages --dotfiles -d .output/public"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",

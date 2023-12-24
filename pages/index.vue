@@ -54,8 +54,8 @@ definePageMeta({
   })
 })
 
-const dataTest = await $fetch('/api/firebase')
-console.log(dataTest)
+// const dataTest = await $fetch('/api/firebase')
+// console.log(dataTest)
 
 // const { data } = await useAsyncData('firebase', () => $fetch('/api/firebase'))
 // console.log(data);

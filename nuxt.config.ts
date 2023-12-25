@@ -29,7 +29,11 @@ export default defineNuxtConfig({
   nitro: {
     preset: 'firebase',
     firebase: {
-      gen: 2
+      gen: 2,
+      serverFunctionName: 'server'
+    },
+    httpsOptions: {
+      maxInstances: 10
     }
   }
 })

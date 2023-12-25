@@ -6,12 +6,12 @@
       <p class="my-8 text-xl text-gray-800">
         真的是找不到這個頁面啦 &gt;///&lt;
       </p>
-      <p class=" text-2xl text-red-400">路徑錯誤，會先顯示這層</p>
-      <p class=" text-2xl text-red-400">程式碼錯誤會顯示error.vue （404.vue沒作用）</p>
+      <p class="text-2xl text-red-400">路徑錯誤，會先顯示這層</p>
+      <p class="text-2xl text-red-400">程式碼錯誤會顯示error.vue</p>
     </div>
   </div>
 </template>
 
 <script setup>
-setResponseStatus(404);
+setResponseStatus(404)
 </script>

@@ -10,6 +10,11 @@ export default {
     './error.vue'
   ],
   theme: {
+    // 需在extend新增，導致浪費兩小時除錯，會噴自定義-[xxpx]
+    // screens: {
+    //   sm: "390px",
+    // 'sm': '390px',
+    // },
     fontFamily: {
       sans: ['Noto Sans', 'sans-serif']
     },
@@ -34,6 +39,7 @@ export default {
         numberThree: '#84CB98'
       },
       screens: {
+        // 成功
         sm: '1166px'
       }
     }

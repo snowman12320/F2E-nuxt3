@@ -70,7 +70,6 @@ definePageMeta({
     class="min-h-screen !overflow-y-hidden bg-neutral-100"
     @click="handleToggleSelect"
   >
-    <BaseNavBar />
     <ClientOnly>
       <!-- 伺服器端預設渲染內容 -->
       <template #fallback>

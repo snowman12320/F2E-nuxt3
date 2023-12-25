@@ -182,4 +182,3 @@ import(`~/assets/json/2020/各黨數據.json`).then((res) => {
   </div>
 </template>
 
-<style lang="scss" scoped></style>

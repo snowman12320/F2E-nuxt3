@@ -64,6 +64,12 @@ import { useMouse } from "@vueuse/core";
 - // 第一層要value 第二層不用
   selectedListStore.value["區域"] = areaNames.value[0].district[0];
 
+- 假引入
+// import { defineProps } from '#imports';
+defineProps<{
+  loading: boolean;
+}>();
+
 ## // state management
 
 - 內建狀態管理工具
@@ -325,3 +331,8 @@ Aborting
 
 <!-- test windows conflict in local -->
 ## test windows conflict in remote
+
+
+
+### //// loadash ///
+// import { get as _get, trim as _trim, isEqual as _isEqual } from 'lodash';

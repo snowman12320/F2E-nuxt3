@@ -1,41 +1,29 @@
 <script setup lang="ts">
-// USEVUE 調整true false植 會有問題
-// const [loading, toggleLoading] = useToggle();
-
 const isLoading = useLoading()
-const isDark = useDark()
-const afterBg = ref() // do not use ref(null)
-const toggleDark = useToggle(isDark)
-
-let timerId: number | null | NodeJS.Timeout = null
 isLoading.value = true
 
-onMounted(() => {
-  setTimeout(() => {
-    if (isDark) {
-      // afterBg.value.classList.add("hidden");
-    }
-  }, 1000)
-})
+const afterBg = ref()
+const isDark = useDark()
+const toggleDark = useToggle(isDark)
+let timerId: number | null | NodeJS.Timeout = null
+const handleTimeClick = async () => {
+  await afterBg.value?.classList.remove('hidden')
+  toggleDark()
+  timerId = setTimeout(() => {
+    afterBg.value?.classList.add('hidden')
+  }, 1100)
+}
 onUnmounted(() => {
   if (timerId) {
     clearTimeout(timerId)
   }
 })
 
-const handleTimeClick = () => {
-  toggleDark()
-  afterBg.value?.classList.remove('hidden')
-  timerId = setTimeout(() => {
-    afterBg.value?.classList.add('hidden')
-  }, 1000)
-}
-
+// e.target 的類型是 EventTarget，它沒有 classList 屬性。我們需要將 e.target 轉換為 Element 類型。
+// e.target 可能是 null，我們需要先檢查它是否存在
 const toggleSelectNames = useToggleSelectNames()
 function handleToggleSelect(e: MouseEvent) {
-  // e.target 的類型是 EventTarget，它沒有 classList 屬性。我們需要將 e.target 轉換為 Element 類型。
   const target = e.target as Element
-  // e.target 可能是 null，我們需要先檢查它是否存在
   if (target) {
     // when click outside of id = toggleSelect,then toggleSelectNames.value = false in components/TabsView.vue
     if (
@@ -53,21 +41,14 @@ definePageMeta({
     // console.log(`[匿名中間件] 我是直接定義在 index.vue 頁面內的匿名中間件`)
   })
 })
-
-// const dataTest = await $fetch('/api/firebase')
-// console.log(dataTest)
-
-// const { data } = await useAsyncData('firebase', () => $fetch('/api/firebase'))
-// console.log(data);
-
-// const { data, pending, refresh, error, status } =
-//   await useFetch('/api/firebase')
-// console.log(data, pending, refresh, error, status)
 </script>
 
 <template>
   <div
-    class="min-h-screen !overflow-y-hidden bg-neutral-100"
+    class="min-h-screen !overflow-y-hidden bg-neutral-100 !duration-[1000ms]"
+    :class="{
+      '!bg-gray-800': isDark
+    }"
     @click="handleToggleSelect"
   >
     <ClientOnly>
@@ -84,28 +65,50 @@ definePageMeta({
       <BaseLoadingView :loading="isLoading" />
     </ClientOnly>
     <nav
-      class="relative overflow-hidden bg-primary"
-      :class="{ '!bg-black !transition-all !duration-[1000ms]': isDark }"
+      class="overflow-hidden bg-primary !duration-[1000ms]"
+      :class="{ '!bg-black !transition-all ': isDark }"
     >
-      <h4
-        class="py-m pl-4xl font-semibold text-white"
-        @click="handleTimeClick()"
-      >
-        2020 開票地圖
-      </h4>
+      <div class="flex items-center justify-between px-4xl">
+        <h4 class="py-m font-semibold text-white">2020 開票地圖</h4>
+        <div class="z-[98] space-x-m">
+          <Icon
+            name="fa-solid:star"
+            color="yellow"
+            class="h-xl w-xl cursor-pointer"
+          />
+          <Icon
+            name="fa-solid:history"
+            color="red"
+            class="h-xl w-xl cursor-pointer"
+          />
+          <Icon
+            v-if="isDark"
+            name="fa-solid:sun"
+            color="orange"
+            class="h-xl w-xl cursor-pointer pr-xxs"
+            @click="handleTimeClick"
+          />
+          <Icon
+            v-else
+            name="fa-solid:moon"
+            color="white"
+            class="h-l w-l cursor-pointer"
+            @click="handleTimeClick"
+          />
+        </div>
+      </div>
       <span
         ref="afterBg"
         :class="{
-          'after:!scale-[100] after:!transition-all after:!duration-[1500ms]':
+          'after:!scale-[100] after:!transition-all after:!duration-[1000ms]':
             isDark
         }"
-        class="w-full after:absolute after:left-1/2 after:top-1/2 after:h-[50px] after:w-[50px] after:-translate-y-1/2 after:scale-[0] after:rounded-full after:bg-black after:!transition-all after:!duration-[1500ms]"
+        class="z-[0] w-full after:absolute after:right-[0px] after:top-[0px] after:h-[50px] after:w-[50px] after:-translate-y-1/2 after:scale-[0] after:rounded-full after:bg-black after:!transition-all after:!duration-[1000ms]"
       />
     </nav>
     <main class="px-l py-xl sm:px-4xl">
       <IndexTabsGroup />
       <section class="z-[1] flex flex-col justify-between sm:flex-row">
-        <!-- 客戶端在渲染可避免右側渲染錯誤 -->
         <ClientOnly>
           <IndexLeftBarView />
           <IndexTaiwanBarView />

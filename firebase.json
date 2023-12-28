@@ -14,6 +14,9 @@
         "function": "server"
       }
     ],
-    "predeploy": ["cd .output/server && rm -rf node_modules && pnpm install"]
+    // "predeploy": ["cd .output/server && rm -rf node_modules && pnpm install"]
+    "predeploy": [
+      "if exist .output\\server (cd .output\\server && if exist node_modules (rd /s /q node_modules && pnpm install))"
+    ]
   }
 }

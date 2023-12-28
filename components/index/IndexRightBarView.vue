@@ -79,8 +79,11 @@ const handleClick = (e: Event) => {
 
 <template>
   <main class="mt-3xl">
-    <div v-if="Object.keys(cityVote) == 0" class="h-[645px] space-y-l">
-      <div class="h-[249px] w-[260px] rounded-lg border-2 bg-[#DEE0E4] p-l">
+    <div
+      v-if="Object.keys(cityVote) == 0"
+      class="flex gap-xs md:block md:h-[645px] md:space-y-l"
+    >
+      <div class="h-[249px] rounded-lg border-2 bg-[#DEE0E4] p-l md:w-[260px]">
         <h6 class="flex items-center pb-xs font-semibold">
           <Icon name="ic:outline-info" width="25" class="pr-xxs" /> 小提示
         </h6>
@@ -88,8 +91,8 @@ const handleClick = (e: Event) => {
         <div
           class="dropdown-default relative mx-auto mt-[62px] !cursor-default !border-transparent"
         >
-          <h6 class="w-[100px] flex-none font-semibold text-inherit">請選擇</h6>
-          <Icon name="fa-solid:chevron-down" width="55" :verticalFlip="false" />
+          <h6 class="md:w-[100px] flex-none font-semibold text-inherit">請選擇</h6>
+          <Icon name="fa-solid:chevron-down"  :verticalFlip="false" class="md:w-[55px]" />
           <svg
             class="absolute left-[97px] top-[1px]"
             xmlns="http://www.w3.org/2000/svg"
@@ -177,14 +180,14 @@ const handleClick = (e: Event) => {
           </svg>
         </div>
       </div>
-      <div class="h-[249px] w-[260px] rounded-lg border-2 bg-[#DEE0E4] p-l">
+      <div class="h-[249px] md:w-[260px] rounded-lg border-2 bg-[#DEE0E4] p-l">
         <div class="space-x-xxs">
           <h6 class="flex items-center justify-start pb-xs font-semibold">
             <Icon name="ic:outline-info" class="flex-none" width="25" />小提示
           </h6>
         </div>
         <p class="h7">點擊地圖查看縣市的選舉結果</p>
-        <div class="relative mx-auto mt-[80px] w-[111px]">
+        <div class="relative mx-auto mt-[80px] md:w-[111px]">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="111"

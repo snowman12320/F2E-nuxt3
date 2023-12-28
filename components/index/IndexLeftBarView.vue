@@ -3,6 +3,8 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { Doughnut } from 'vue-chartjs'
 import * as chartConfig from '~/assets/js/chartConfig'
 ChartJS.register(ArcElement, Tooltip)
+const isDark = useDark()
+
 
 const mutableHeight = ref('inherit')
 const myStyles = computed(() => ({
@@ -64,7 +66,10 @@ import(`~/assets/json/2020/各黨數據.json`).then((res) => {
 
 <template>
   <div
-    class="mt-2xl h-auto rounded-lg bg-white p-l sm:h-full sm:w-[270px] sm:space-y-l"
+    class="mt-2xl h-auto rounded-lg bg-white p-l sm:h-full sm:w-[270px] sm:space-y-l !duration-[1000ms]"
+    :class="{
+      '!bg-[#DEE0E4]': isDark
+    }"
   >
     <div class="relative flex items-center justify-between">
       <h6 class="font-bold text-inherit sm:font-semibold">投票概況</h6>
@@ -181,4 +186,3 @@ import(`~/assets/json/2020/各黨數據.json`).then((res) => {
     </section>
   </div>
 </template>
-

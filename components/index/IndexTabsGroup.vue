@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const isDark = useDark()
+
 interface City {
   name: string
   district: string[]
@@ -102,7 +104,10 @@ setTimeout(async () => {
       <h6
         class="tab-default"
         @click="selectTab('presidential')"
-        :class="{ 'tab-click': tabName === 'presidential' }"
+        :class="{
+          'tab-click': tabName === 'presidential',
+          'border-b-gray-400 text-white hover:text-white': isDark
+        }"
       >
         第15任 總統副總統大選
       </h6>
@@ -164,13 +169,13 @@ setTimeout(async () => {
               </div>
               <span
                 :class="{
-                  ' absolute inset-[0] cursor-not-allowed bg-white/70':
+                  ' absolute inset-[0] cursor-not-allowed rounded-lg bg-white/70':
                     label == '區域' && !areaNames[0]
                 }"
               ></span>
               <span
                 :class="{
-                  ' absolute inset-[0] cursor-not-allowed bg-white/70':
+                  ' absolute inset-[0] cursor-not-allowed rounded-lg bg-white/70':
                     label == '鄉鎮' && townNames.length == 0
                 }"
               ></span>
@@ -178,7 +183,7 @@ setTimeout(async () => {
             <ul
               id="scrollbar"
               v-show="toggleSelectNames.toString() === label"
-              class="absolute left-[0] top-[44px] z-[10] max-h-[204px] w-full overflow-hidden overflow-y-auto rounded-lg border border-black bg-white"
+              class="absolute left-[0] top-[44px] z-[10] max-h-[204px] w-full overflow-hidden overflow-y-auto rounded-lg border border-black bg-[#DEE0E4]"
             >
               <li
                 v-show="filterTownNames.length == 0 && Boolean(inputSelect)"

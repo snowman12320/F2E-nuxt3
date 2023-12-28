@@ -3,7 +3,7 @@
 -
 -
 
-### ////////////////// tailwind /////////////////
+### // tailwind 
 
 - +++ 要 npm run build 才有 tailwind.config
   編譯和開發環境都要重啟 (都要重按pnpm) ，才會更新config
@@ -69,6 +69,12 @@ import { useMouse } from "@vueuse/core";
 defineProps<{
   loading: boolean;
 }>();
+
+-
+// useVue 調整true false植 會有問題
+// const [loading, toggleLoading] = useToggle();
+
+- const afterBg = ref() // do not use ref(null)
 
 ## // state management
 
@@ -162,22 +168,8 @@ import { defineProps } from 'vue'
 
 const props = defineProps(['data', 'options'])
 
-### //
 
-```
-import _ from 'lodash';
-
-  if (_.every(selectedData.value, _.isEmpty)) {
-    alert("already clear");
-    return;
-  }
-  // if (Object.keys(selectedData.value).every((key) => !selectedData.value[key])) {
-  //   alert('already clear');
-  //   return
-  // }
-```
-
-# //// TSC ///
+### //// TSC ///
 
 - 修改 要重新開啟 dev
 - sudo npm install -g ts-node
@@ -336,3 +328,34 @@ Aborting
 
 ### //// loadash ///
 // import { get as _get, trim as _trim, isEqual as _isEqual } from 'lodash';
+
+import _ from 'lodash';
+
+  if (_.every(selectedData.value, _.isEmpty)) {
+    alert("already clear");
+    return;
+  }
+  // if (Object.keys(selectedData.value).every((key) => !selectedData.value[key])) {
+  //   alert('already clear');
+  //   return
+  // }
+
+
+### //// firebase ///
+// nuxt 影片文章有說明 https://ithelp.ithome.com.tw/articles/10331492
+
+// 純資料
+The first section is the simplest form. It uses the $fetch function to make a request to the /api/firebase endpoint and waits for the response using the await keyword. The response is then stored in the dataTest constant. However, this section of the code is commented out.
+// const dataTest = await $fetch('/api/firebase')
+// console.log(dataTest)
+
+// 詳細
+The second section uses the useAsyncData function, which is a custom hook that fetches data asynchronously. It takes two arguments: a key ('firebase') and a fetcher function (() => $fetch('/api/firebase')). The fetcher function is where you define how to fetch your data. The useAsyncData function returns an object with a data property, which contains the fetched data. This section of the code is also commented out.
+// const { data } = await useAsyncData('firebase', () => $fetch('/api/firebase'))
+// console.log(data);
+
+// 更詳細
+The third section is the most detailed. It uses the useFetch function, which is similar to useAsyncData but provides more information about the fetch operation. It returns an object with several properties: data (the fetched data), pending (a boolean indicating whether the fetch operation is still ongoing), refresh (a function to refresh the data), error (any error that occurred during the fetch operation), and status (the HTTP status code of the response). This section of the code is not commented out, so it will be executed when this file is run.
+// const { data, pending, refresh, error, status } =
+//   await useFetch('/api/firebase')
+// console.log(data)

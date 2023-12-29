@@ -76,6 +76,10 @@ defineProps<{
 
 - const afterBg = ref() // do not use ref(null)
 
+-
+<!-- 清空時，畫面會抖動 -->
+<!-- <LazyIndexRightBarView v-if="!isLoading" /> -->
+
 ## // state management
 
 - 內建狀態管理工具

@@ -23,7 +23,7 @@ function selectTab(tab: string) {
   tabName.value = tab
 }
 
-const SelectCityData = await useFetch<City[]>('/api/SelectCityData')
+const SelectCityData = await useFetch<City[]>('/api/selectData/SelectCityData')
 const cityNames = computed(() => {
   return SelectCityData?.data?._rawValue?.map((city: any) => city.name) || []
 })
@@ -183,7 +183,7 @@ setTimeout(async () => {
             <ul
               id="scrollbar"
               v-show="toggleSelectNames.toString() === label"
-              class="absolute left-[0] top-[44px] z-[10] max-h-[204px] w-full overflow-hidden overflow-y-auto rounded-lg border border-black bg-[#DEE0E4]"
+              class="absolute left-[0] top-[44px] z-[10] max-h-[204px] w-full overflow-hidden overflow-y-auto rounded-lg border border-black bg-[white]"
             >
               <li
                 v-show="filterTownNames.length == 0 && Boolean(inputSelect)"

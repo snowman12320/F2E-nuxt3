@@ -35,5 +35,6 @@ export default defineNuxtConfig({
     httpsOptions: {
       maxInstances: 10
     }
-  }
+  },
+  plugins: ['~/plugins/naive-ui.ts']  
 })

@@ -11,7 +11,7 @@ const handleTimeClick = async () => {
   toggleDark()
   timerId = setTimeout(() => {
     afterBg.value?.classList.add('hidden')
-  }, 1100)
+  }, 500)
 }
 onUnmounted(() => {
   if (timerId) {
@@ -19,10 +19,13 @@ onUnmounted(() => {
   }
 })
 
+// e.target 的類型是 EventTarget，它沒有 classList 屬性。我們需要將 e.target 轉換為 Element 類型。
+// e.target 可能是 null，我們需要先檢查它是否存在
 const toggleSelectNames = useToggleSelectNames()
 function handleToggleSelect(e: MouseEvent) {
   const target = e.target as Element
   if (target) {
+    // when click outside of id = toggleSelect,then toggleSelectNames.value = false in components/TabsView.vue
     if (
       !target.classList.contains('dropdown-default') &&
       !target.classList.contains('sm:w-[55px]') &&
@@ -33,7 +36,11 @@ function handleToggleSelect(e: MouseEvent) {
   }
 }
 
-// const dataTest = await $fetch('/api/firestore/firebase')
+definePageMeta({
+  middleware: defineNuxtRouteMiddleware(() => {
+    // console.log(`[匿名中間件] 我是直接定義在 index.vue 頁面內的匿名中間件`)
+  })
+})
 </script>
 
 <template>
@@ -45,6 +52,7 @@ function handleToggleSelect(e: MouseEvent) {
     @click="handleToggleSelect"
   >
     <ClientOnly>
+      <!-- 伺服器端預設渲染內容 > 需確認影片說明 !!! -->
       <template #fallback>
         <BaseLoadingView :loading="isLoading" />
         <p
@@ -53,6 +61,7 @@ function handleToggleSelect(e: MouseEvent) {
           資料載入中 . . .
         </p>
       </template>
+      <!-- 客戶端接手渲染內容 -->
       <BaseLoadingView :loading="isLoading" />
     </ClientOnly>
     <nav
@@ -61,24 +70,19 @@ function handleToggleSelect(e: MouseEvent) {
     >
       <div class="flex items-center justify-between px-4xl">
         <h4 class="py-m font-semibold text-white">
-          2020 開票地圖 <NButton type="success"> Success </NButton>
+          2020 開票地圖 
         </h4>
         <div class="z-[98] space-x-m">
-          <span title="Update to F2E pro">
-            <Icon
-              name="fa-solid:star"
-              color="yellow"
-              class="h-xl w-xl cursor-pointer"
-              title="開發中"
-            />
-          </span>
-          <span title="Update to F2E pro">
-            <Icon
-              name="fa-solid:history"
-              color="red"
-              class="h-xl w-xl cursor-pointer"
-            />
-          </span>
+          <Icon
+            name="fa-solid:star"
+            color="yellow"
+            class="h-xl w-xl cursor-pointer"
+          />
+          <Icon
+            name="fa-solid:history"
+            color="red"
+            class="h-xl w-xl cursor-pointer"
+          />
           <Icon
             v-if="isDark"
             name="fa-solid:sun"
@@ -112,6 +116,8 @@ function handleToggleSelect(e: MouseEvent) {
           <IndexTaiwanBarView />
           <IndexRightBarView />
         </ClientOnly>
+        <!-- 清空時，畫面會抖動 -->
+        <!-- <LazyIndexRightBarView v-if="!isLoading" /> -->
       </section>
     </main>
   </div>

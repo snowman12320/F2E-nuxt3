@@ -95,7 +95,7 @@ const filterTownNames = computed(() =>
 setTimeout(async () => {
   // selectedListStore.value["縣市"] = await "南投縣";
   isLoading.value = false
-}, 1000)
+}, 100)
 </script>
 
 <template>

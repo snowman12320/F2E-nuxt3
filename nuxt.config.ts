@@ -31,10 +31,10 @@ export default defineNuxtConfig({
     firebase: {
       gen: 2,
       serverFunctionName: 'server'
-    },
-    httpsOptions: {
-      maxInstances: 10
     }
   },
-  plugins: ['~/plugins/naive-ui.ts']  
+  plugins: ['~/plugins/naive-ui.ts'],
+  httpsOptions: {
+    maxInstances: 10
+  }
 })

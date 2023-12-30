@@ -6,7 +6,7 @@
 
 </div>
 
-[Demo](https://timingjl.github.io/presidential-election-results-map-by-yuni/)
+[Demo](https://test1227-dbafe.web.app/)
 
 ## 作品說明
 
@@ -34,8 +34,6 @@ pnpm run dev
 ## 資料夾說明
 
 ```shell
-├── public
-│   └── images/       # 
 ├── assets/           # 放需要經過 webpack 處理的資源，例如需要經過預處理器（如 Sass 或 Babel）處理的樣式表或 JavaScript 文件。當你在 Vue 檔案中使用相對路徑引用 assets 目錄中的資源時，該路徑會被 webpack 處理並轉換為最終的路徑。
 ├── components/       # 件是應用的構建塊，可以被重複使用在不同的部分和頁面，不需import即可使用。
 ├── layouts/          # 用於存放應用的佈局模板。佈局是用來改變頁面的外觀和行為的一種方式。
@@ -58,13 +56,12 @@ pnpm run dev
 
 - Vue.js：前端開發框架，用於建立使用者介面和應用程式的元件。
 - axios: Axios 是一個簡單的基於 Promise 的 HTTP 客戶端，適用於瀏覽器和 Node.js。
-- VueUUse: 提供各種實用的 Vue Composables 函數的庫。這些 Composables 函數可以在 Vue 應用中重複使用，以提供各種功能，如狀態管理、側效處理、工具函數等。
+- VueUse: 提供各種實用的 Vue Composables 函數的庫。這些 Composables 函數可以在 Vue 應用中重複使用，以提供各種功能，如狀態管理、側效處理、工具函數等。
 - nuxt-lodash：Nuxt.js 的模塊，它允許你在你的 Nuxt.js 應用中使用 lodash 函數庫。lodash 是一個 JavaScript 工具庫，提供了許多有用的工具函數
 
 **樣式**
 
 - Tailwind CSS：用於開發網頁和網頁應用的 CSS 框架。
-- PostCSS：用於使用 JavaScript 轉換 CSS 的工具。
 
 **元件庫**
 
@@ -87,19 +84,19 @@ pnpm run dev
 
 **部署和託管**
 
-- gh-pages：用於將應用程式部署到 GitHub Pages，以便在線上示範和分享專案。
+<!-- - gh-pages：用於將應用程式部署到 GitHub Pages，以便在線上示範和分享專案。 -->
 - firebase-tools: Firebase CLI 是一個命令列工具，可讓您與 Firebase 服務進行交互。您可以使用它來部署到 Firebase Hosting，以及在本地開發和測試 Firebase 雲功能。
-- vercel：用於將應用程式部署到 Vercel，以便在線上示範和分享專案。
+<!-- - vercel：用於將應用程式部署到 Vercel，以便在線上示範和分享專案。 -->
 
 **版本控制**
 
 - Git：用於版本控制。
-- 
+  
 **其他**
 
 - pnpm：用於安裝和管理專案相依套件的工具。與 npm 和 yarn 類似，但提供更高效的存儲策略，可以共享相同版本的套件，而不是每個專案都單獨存儲一份。
 - Figma: 用於設計和共享網站設計的工，允許團隊成員共享和協作設計。
-- @nuxt/devtools：這是一個 Nuxt.js 的開發工具，可以幫助開發者更好地理解和調試他們的 Nuxt.js 應用。
+- nuxt/devtools：這是一個 Nuxt.js 的開發工具，可以幫助開發者更好地理解和調試他們的 Nuxt.js 應用。
   
 **資料**
 
@@ -107,12 +104,11 @@ pnpm run dev
   - https://db.cec.gov.tw/ElecTable/Election?type=President
 
 ## 預計導入
+
 **測試框架**
 
 - jest：一個簡單的 JavaScript 測試框架，用於測試 Vue.js 元件。
-- vue-test-utils：Vue.js 官方提供的用於測試 Vue.js 元件的工具。
 
 ## 相關連結
 
 - [設計稿(Designed by yuni)](https://www.figma.com/file/Caoi6yMxwbeKMneS5tsCt6/開票地圖?type=design&node-id=66%3A3043&mode=design&t=5N4mw68gAfagODaM-1)
-

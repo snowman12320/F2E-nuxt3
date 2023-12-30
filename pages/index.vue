@@ -33,6 +33,17 @@ function handleToggleSelect(e: MouseEvent) {
   }
 }
 
+const nav = ref()
+const navHeight = ref(0)
+onMounted(() => {
+  navHeight.value = nav.value?.clientHeight || 0
+  if (window.innerWidth < 767) {
+      document.body.style.paddingTop = `${navHeight.value}px`
+    }
+  })
+ 
+  
+
 // const dataTest = await $fetch('/api/firestore/firebase')
 </script>
 
@@ -56,13 +67,12 @@ function handleToggleSelect(e: MouseEvent) {
       <BaseLoadingView :loading="isLoading" />
     </ClientOnly>
     <nav
-      class="overflow-hidden bg-primary !duration-[1000ms]"
+      class="fixed left-[0px] right-[0px] top-[0px] z-[99] overflow-hidden bg-primary !duration-[1000ms] md:relative"
       :class="{ '!bg-black !transition-all ': isDark }"
+      ref="nav"
     >
       <div class="flex items-center justify-between px-4xl">
-        <h4 class="py-m font-semibold text-white">
-          2020 開票地圖 <NButton type="success"> Success </NButton>
-        </h4>
+        <h4 class="py-m font-semibold text-white">2020 開票地圖</h4>
         <div class="z-[98] space-x-m">
           <span title="Update to F2E pro">
             <Icon
@@ -83,7 +93,7 @@ function handleToggleSelect(e: MouseEvent) {
             v-if="isDark"
             name="fa-solid:sun"
             color="orange"
-            class="h-xl w-xl cursor-pointer pr-xxs"
+            class="h-[28px] w-[28px] cursor-pointer pr-xxs"
             @click="handleTimeClick"
           />
           <Icon

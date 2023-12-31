@@ -8,6 +8,10 @@
 
 [Demo](https://test1227-dbafe.web.app/)
 
+其他專案：
+[JTown | THE BIGGEST NBA STORE](https://snowman12320.github.io/jtown-vite/#/)
+ / [原始碼](https://github.com/snowman12320/F2E-nuxt3/tree/main)
+
 ## 作品說明
 
 這個網站是一個為台灣人提供歷史選舉和區域統計數據的資訊平台。透過直觀的圖表，使用者可以輕鬆檢視市、區、里的歷史數據分布，包括人口統計和總統歷史大選資訊。
@@ -16,20 +20,24 @@
 
 **版本**
 
-本專案在 Node.js `v18.18.0` 環境下進行開發。
+專案在 Node.js `v18.18.0` 環境下進行開發。
 
 **專案運行**
 
 您可以按照以下步驟運行專案：
 
 ```shell
+// pnpm
 pnpm install
 pnpm run dev
 ```
+```shell
+// or npm
+npm install
+npm run dev
+```
 
-這些命令將安裝所有必要的相依套件，並啟動開發伺服器，讓您能夠開始開發和預覽您的專案。
-
-如果您需要更多詳細資訊，請參考專案的 `package.json`。
+安裝所有必要的相依套件，並啟動開發伺服器，能夠開始開發和預覽專案。
 
 ## 資料夾說明
 
@@ -107,6 +115,7 @@ pnpm run dev
 
 **測試框架**
 
+- Firebase：具有現成API的雲服務，提供各種靜態儲存、資料庫、部屬、會員系統、發信功能，有助前端輔助開發。
 - jest：一個簡單的 JavaScript 測試框架，用於測試 Vue.js 元件。
 
 ## 相關連結

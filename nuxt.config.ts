@@ -36,5 +36,13 @@ export default defineNuxtConfig({
   plugins: ['~/plugins/naive-ui.ts'],
   httpsOptions: {
     maxInstances: 10
+  },
+  runtimeConfig: {
+    apiSecret: '怎麼可以讓你知道呢 :P ',
+    public: {
+      apiBase: '/api',
+      googleClientId: ''
+    },
+    googleClientId: ''
   }
 })

@@ -363,3 +363,8 @@ The third section is the most detailed. It uses the useFetch function, which is 
 // const { data, pending, refresh, error, status } =
 //   await useFetch('/api/firebase')
 // console.log(data)
+
+使用編譯方式
+npm run build --preset=firebase
+
+npx firebase-tools deploy  

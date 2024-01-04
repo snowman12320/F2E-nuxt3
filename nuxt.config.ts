@@ -27,11 +27,12 @@ export default defineNuxtConfig({
     dirs: ['composables/**']
   },
   nitro: {
+    preset: 'firebase',
     firebase: {
       gen: 2,
+      serverFunctionName: 'server',
       httpsOptions: {
-        region: 'us-central1',
-        maxInstances: 3
+        maxInstances: 10,
       }
     }
   },

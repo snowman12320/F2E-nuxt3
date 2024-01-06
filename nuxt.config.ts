@@ -32,7 +32,7 @@ export default defineNuxtConfig({
       gen: 2,
       serverFunctionName: 'server',
       httpsOptions: {
-        maxInstances: 10,
+        maxInstances: 10
       }
     }
   },
@@ -44,20 +44,5 @@ export default defineNuxtConfig({
       googleClientId: ''
     },
     googleClientId: ''
-  },
-  buildModules: ['@nuxtjs/firebase'],
-  firebase: {
-    config: {
-      apiKey: 'AIzaSyBjht0vea76V6ZLkCyqiFxeYRp4rvTaCYA',
-      authDomain: 'my-first-project-1110913.firebaseapp.com',
-      projectId: 'my-first-project-1110913',
-      storageBucket: 'my-first-project-1110913.appspot.com',
-      messagingSenderId: '975844882213',
-      appId: '1:975844882213:web:fe2ad0746c2de61e5f4ccc',
-      measurementId: 'G-C8JWYX7WYP'
-    },
-    services: {
-      auth: true // Just as an example. You can use other services too.
-    }
   }
 })

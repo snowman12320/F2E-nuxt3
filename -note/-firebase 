@@ -1,0 +1,80 @@
+使用編譯方式
+pnpm run build --preset=firebase
+
+(cd .output/server)
+pnpm add @google-cloud/functions-framework
+
+npx firebase-tools deploy  
+<!--  -->
+    "@google-cloud/functions-framework": "^3.3.0",
+    "@nuxtjs/firebase": "^8.2.2",
+<!--  -->
+
+The error message in your terminal indicates that your project is using pnpm but the Functions Framework is not included in your dependencies. You can fix this by adding the Functions Framework to your dependencies.
+
+Here's how you can do it:
+
+Open your terminal.
+Navigate to your function's directory (.output/server based on your firebase.json).
+Run the command pnpm add @google-cloud/functions-framework.
+This will add the Functions Framework to your project's dependencies, which should resolve the error you're encountering.
+
+Please note that you need to have pnpm installed on your system to run this command. If you don't have it installed, you can install it by running npm install -g pnpm.
+
+<!--  -->
+
+It seems like you're encountering a "500 Internal Server Error". This is a generic error message that means the server encountered an unexpected condition that prevented it from fulfilling the request.
+
+The error could be due to various reasons such as:
+
+Server-side issues
+Issues with your code
+Problems with dependencies or external services your application relies on
+To debug this issue, you can:
+
+Check the server logs for any error messages or exceptions that occurred around the time the error was encountered.
+If the error is in your code, try to isolate the part of the code that is causing the error. You can do this by commenting out sections of the code and seeing if the error persists.
+If the error is due to a dependency or external service, ensure that these are correctly configured and functioning as expected.
+Without more specific information, it's hard to provide a more detailed solution. If you have more details about the error or the context in which it's occurring, I could provide a more targeted solution.
+
+<!--  -->
+
+The error message you're seeing indicates that the nuxt preview command is not supported for your current build. The nuxt preview command is typically used to start a server in production mode. This command is meant to be used after running nuxt generate to preview your statically generated application.
+
+If you're trying to start your application in development mode, you should use the nuxt or nuxt dev command instead. If you're trying to start your application in production mode, make sure you've run nuxt generate first.
+
+If you're still encountering issues, it could be due to a misconfiguration in your nuxt.config.js file or an issue with your project's dependencies. You should check your project's configuration and ensure all dependencies are correctly installed.
+
+<!--  -->
+
+buildModules: ['@nuxtjs/firebase'],
+firebase: {
+config: {
+apiKey: 'AIzaSyBjht0vea76V6ZLkCyqiFxeYRp4rvTaCYA',
+authDomain: 'my-first-project-1110913.firebaseapp.com',
+projectId: 'my-first-project-1110913',
+storageBucket: 'my-first-project-1110913.appspot.com',
+messagingSenderId: '975844882213',
+appId: '1:975844882213:web:fe2ad0746c2de61e5f4ccc',
+measurementId: 'G-C8JWYX7WYP'
+},
+services: {
+auth: true // Just as an example. You can use other services too.
+}
+}
+<!--  -->
+The error message you're seeing in your logs indicates that there's an issue with your Firebase Cloud Function or Cloud Run service named "server" in the "us-central1" region.
+
+To debug this issue, you can:
+
+Check the logs for your Cloud Function or Cloud Run service in the Firebase console. Look for any error messages or exceptions that occurred around the time the error was encountered.
+
+If the error is in your code, try to isolate the part of the code that is causing the error. You can do this by commenting out sections of the code and seeing if the error persists.
+
+If the error is due to a dependency or external service, ensure that these are correctly configured and functioning as expected.
+
+Make sure that your Firebase project is correctly configured to use Cloud Functions or Cloud Run. You can check this in your firebase.json file.
+
+If you're deploying your function or service with the npx firebase-tools deploy command, make sure that you've installed the Firebase CLI and that you're authenticated with the correct Firebase account.
+
+Without more specific information, it's hard to provide a more detailed solution. If you have more details about the error or the context in which it's occurring, I could provide a more targeted solution.

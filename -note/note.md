@@ -365,3 +365,9 @@ The third section is the most detailed. It uses the useFetch function, which is 
 // console.log(data)
 
 
+
+### //// VIM ///
+mkdir -p locales
+vim locales/en.json
+
+After running the vim command, you'll be in the Vim editor. You can start inserting text by pressing i to enter insert mode. When you're done, press Esc to exit insert mode, then type :wq and press Enter to save your changes and quit Vim.

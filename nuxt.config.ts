@@ -31,6 +31,7 @@ export default defineNuxtConfig({
     firebase: {
       gen: 2,
       serverFunctionName: 'server',
+      region: 'us-central1',
       httpsOptions: {
         maxInstances: 10
       }

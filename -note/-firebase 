@@ -1,10 +1,14 @@
-使用編譯方式
+部屬方式
+https://nuxt.com/deploy/firebase#options
+
 pnpm run build --preset=firebase
 
-(cd .output/server)
+cd .output/server
 pnpm add @google-cloud/functions-framework
 
 npx firebase-tools deploy  
+or 
+firebase deploy
 <!--  -->
     "@google-cloud/functions-framework": "^3.3.0",
     "@nuxtjs/firebase": "^8.2.2",

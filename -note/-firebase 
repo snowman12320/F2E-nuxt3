@@ -10,6 +10,9 @@ npx firebase-tools deploy
 or 
 firebase deploy
 <!--  -->
+npx firebase-tools emulators:start
+
+<!--  -->
     "@google-cloud/functions-framework": "^3.3.0",
     "@nuxtjs/firebase": "^8.2.2",
 <!--  -->

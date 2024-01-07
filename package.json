@@ -19,6 +19,7 @@
     "test": "jest"
   },
   "devDependencies": {
+    "@css-render/vue3-ssr": "^0.15.12",
     "@nuxt/devtools": "latest",
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@nuxtjs/eslint-module": "^4.1.0",
@@ -50,6 +51,7 @@
     "vue3-google-login": "^2.0.25"
   },
   "dependencies": {
+    "@nuxtjs/i18n": "^8.0.0",
     "chart.js": "^4.4.0",
     "firebase": "^10.5.2",
     "firebase-admin": "^12.0.0",

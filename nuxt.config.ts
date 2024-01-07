@@ -9,7 +9,8 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@nuxtjs/tailwindcss',
     'nuxt-lodash',
-    'nuxt-icon'
+    'nuxt-icon',
+    '@nuxtjs/i18n'
   ],
   devtools: { enabled: false },
   css: ['~/assets/css/main.css'],
@@ -45,5 +46,46 @@ export default defineNuxtConfig({
       googleClientId: ''
     },
     googleClientId: ''
+  },
+  i18n: {
+    langDir: 'locales',
+    locales: [
+      {
+        code: 'en',
+        iso: 'en-US',
+        file: 'en.json'
+      },
+      {
+        code: 'zh',
+        iso: 'zh-TW',
+        file: 'zh.json'
+      }
+    ],
+    defaultLocale: 'zh',
+    strategy: 'no_prefix',
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected',
+      redirectOn: 'root'
+    }
+  },
+  build: {
+    transpile:
+      process.env.NODE_ENV === 'production'
+        ? [
+            'naive-ui',
+            'vueuc',
+            '@css-render/vue3-ssr',
+            '@juggle/resize-observer'
+          ]
+        : ['@juggle/resize-observer']
+  },
+  vite: {
+    optimizeDeps: {
+      include:
+        process.env.NODE_ENV === 'development'
+          ? ['naive-ui', 'vueuc', 'date-fns-tz/formatInTimeZone']
+          : []
+    }
   }
 })

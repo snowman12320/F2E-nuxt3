@@ -1,6 +1,14 @@
 部屬方式
 https://nuxt.com/deploy/firebase#options
 
+  app: {
+    baseURL: process.env.NODE_ENV === 'production' ? '/' : '/',
+    buildAssetsDir: '/assets/'
+  },
+  app: {
+    baseURL: process.env.NODE_ENV === 'production' ? '/F2E-nuxt3/' : '/',
+    buildAssetsDir: '/static/'
+  },
 pnpm run build --preset=firebase
 
 cd .output/server
@@ -85,3 +93,5 @@ Make sure that your Firebase project is correctly configured to use Cloud Functi
 If you're deploying your function or service with the npx firebase-tools deploy command, make sure that you've installed the Firebase CLI and that you're authenticated with the correct Firebase account.
 
 Without more specific information, it's hard to provide a more detailed solution. If you have more details about the error or the context in which it's occurring, I could provide a more targeted solution.
+
+<!--  -->
